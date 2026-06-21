@@ -21,11 +21,11 @@
 				<form action="#" method="#">
 					<div class="input-group mb-1">
 						<div class="form-floating">
-							<input id="loginEmail" type="email" class="form-control" value="" placeholder="" autocomplete="off" />
+							<input id="loginEmail" type="text" class="form-control" value="" placeholder="" autocomplete="off"/>
 							<label for="loginEmail">Username</label>
 						</div>
 						<div class="input-group-text">
-							<span class="bi bi-envelope"></span>
+							<span class="bi bi-person"></span>
 						</div>
 					</div>
 					<div class="input-group mb-1">
