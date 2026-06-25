@@ -77,12 +77,8 @@
 							</a>
 						</li>
 						<li class="nav-item d-none d-md-block">
-							<a href="./index.html" class="nav-link">
+							<a href="#" class="nav-link">
 								<i class="bi bi-grid-1x2 me-1" aria-hidden="true"></i> Live preview </a>
-						</li>
-						<li class="nav-item d-none d-md-block">
-							<a href="./docs/introduction.html" class="nav-link">
-								<i class="bi bi-book me-1" aria-hidden="true"></i> Documentation </a>
 						</li>
 					</ul>
 					<!--end::Start Navbar Links-->
@@ -106,7 +102,7 @@
 									<!--begin::Message-->
 									<div class="d-flex">
 										<div class="flex-shrink-0">
-											<img src="./assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
+											<img src="{{ asset('adminlte/assets/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
 										</div>
 										<div class="flex-grow-1">
 											<h3 class="dropdown-item-title"> Brad Diesel <span class="float-end fs-7 text-danger">
@@ -114,46 +110,6 @@
 												</span>
 											</h3>
 											<p class="fs-7">Call me whenever you can...</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="./assets/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> John Pierce <span class="float-end fs-7 text-secondary">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">I got your message bro</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="./assets/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> Nora Silvester <span class="float-end fs-7 text-warning">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">The subject goes here</p>
 											<p class="fs-7 text-secondary">
 												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
 											</p>
@@ -177,14 +133,6 @@
 								<div class="dropdown-divider"></div>
 								<a href="#" class="dropdown-item">
 									<i class="bi bi-envelope me-2"></i> 4 new messages <span class="float-end text-secondary fs-7">3 mins</span>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<i class="bi bi-people-fill me-2"></i> 8 friend requests <span class="float-end text-secondary fs-7">12 hours</span>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<i class="bi bi-file-earmark-fill me-2"></i> 3 new reports <span class="float-end text-secondary fs-7">2 days</span>
 								</a>
 								<div class="dropdown-divider"></div>
 								<a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
@@ -286,7 +234,7 @@
 				<!--begin::Sidebar Brand-->
 				<div class="sidebar-brand">
 					<!--begin::Brand Link-->
-					<a href="./index.html" class="brand-link">
+					<a href="{{ route('hereafterlogin') }}" class="brand-link">
 						<!--begin::Brand Image-->
 						<img src="{{ asset('adminlte/assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
 						<!--end::Brand Image-->
@@ -302,7 +250,7 @@
 					<nav class="mt-2" aria-label="Main navigation">
 						<!--begin::Sidebar Menu-->
 						<ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
-							<li class="nav-item menu-open">
+                            <li class="nav-item menu-open">
 								<a href="#" class="nav-link active">
 									<i class="nav-icon bi bi-speedometer"></i>
 									<p> Dashboard <i class="nav-arrow bi bi-chevron-right"></i>
@@ -454,8 +402,8 @@
 						<!--begin::Row-->
 						<div class="row">
 							<div class="col-sm-6">
-								<h3 class="mb-0">Dashboard v3</h3>
-							</div>
+                                <input type="text" class="form-control fs-4" placeholder="Search the customer here...." aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-end">
 									<li class="breadcrumb-item">
@@ -504,9 +452,12 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 		<!--end::Required Plugin(Bootstrap 5)-->
 
+        <script src="{{ asset('adminlte/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('adminlte/js/sweetalert2.all.min.js') }}"></script>
         <!--begin::Required Plugin(AdminLTE)-->
         <script src="{{ asset('adminlte/js/adminlte.js') }}"></script>
 		<!--end::Required Plugin(AdminLTE)-->
+
 
 		<!--begin::OverlayScrollbars Configure-->
 		<script>
@@ -591,6 +542,20 @@
 		<!-- OPTIONAL SCRIPTS -->
 		<!-- apexcharts -->
 		<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
-	</body>
+
+        <script>
+            $(document).ready(function () {
+                $('button.btnClickMe').click(function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                });
+            });
+
+        </script>
+    </body>
 	<!--end::Body-->
 </html>

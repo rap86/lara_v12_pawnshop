@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-
+                <button class="btn btn-danger btnClickMe">Click me to show the Sweet Alert</button>
 			</div>
 		</div>
 	</div>

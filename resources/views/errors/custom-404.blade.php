@@ -15,6 +15,7 @@
 
 		<link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap-icons.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.css') }}">
+
 	</head>
 	<body class="bg-body-tertiary">
 		<main class="d-flex align-items-center min-vh-100 py-5">
@@ -30,6 +31,5 @@
 				</div>
 			</div>
 		</main>
-
 	</body>
 </html>
