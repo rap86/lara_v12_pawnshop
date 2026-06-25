@@ -23,7 +23,7 @@
 					<div class="col-md-8 col-lg-6 text-center">
 						<div class="display-1 fw-bold text-danger lh-1 mb-3">404</div>
 						<h1 class="h3 mb-3">Oops! Page not found.</h1>
-						<p class="text-secondary mb-4"> We could not find the page you were looking for. Meanwhile, you may return to the dashboard or try searching for what you need. </p>
+						<p class="text-secondary mb-4"> We could not find the page you were looking for. Meanwhile, you may return to the dashboard.</p>
 						<a href="{{ route('hereafterlogin') }}" class="btn btn-outline-secondary">
 							<i class="bi bi-arrow-left me-1" aria-hidden="true"></i> Back to dashboard </a>
 					</div>
