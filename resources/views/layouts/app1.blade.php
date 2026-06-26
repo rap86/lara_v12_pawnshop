@@ -61,7 +61,9 @@
 
 		<!-- apexcharts -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
-	</head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.4.0/dist/css/tabulator_bootstrap5.min.css" crossorigin="anonymous"
+    />
+    </head>
 	<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 		<!--begin::App Wrapper-->
 		<div class="app-wrapper">
@@ -272,7 +274,7 @@
 								</a>
 							</li>
                             <li class="nav-item">
-								<a href="#" class="nav-link">
+								<a href="{{ route('customers.index')}}" class="nav-link">
 									<i class="nav-icon bi bi-people"></i>
 									<p>Customer</p>
 								</a>
@@ -551,9 +553,12 @@
 			})();
 		</script>
 		<!--end::Color Mode Toggle-->
+
 		<!-- OPTIONAL SCRIPTS -->
 		<!-- apexcharts -->
 		<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.4.0/dist/js/tabulator.min.js" crossorigin="anonymous"></script>
 
         <script>
             $(document).ready(function () {
