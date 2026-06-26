@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FallbackController;
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/login_page', function () {
     return view('login_page');
 })->middleware(['auth', 'verified'])->name('login_page');
+
+Route::resource('/customers', CustomersController::class);
+
 
 Route::fallback(function () {
     return view('errors.custom-404');

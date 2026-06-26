@@ -27,7 +27,7 @@
                 <div class="d-flex gap-2">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="btn btn-outline-light rounded-pill px-4 btn-sm">Go to Dashboard</a>
+                            <a href="{{ route('hereafterlogin') }}" class="btn btn-outline-light rounded-pill px-4 btn-sm">Go to Dashboard</a>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-light rounded-pill px-4 btn-sm fw-medium">Log In</a>
                             @if (Route::has('register'))
@@ -59,7 +59,7 @@
 
         <footer class="py-3 bg-white border-top text-center text-muted small w-100 mt-auto">
             <div class="container-fluid">
-                Copyright &copy; 2014-2026 <a href="#" class="text-decoration-none text-dark fw-semibold">LoginMoto System</a>. All rights reserved.
+                Copyright &copy; 2014-<?php echo Date('Y')?> <a href="#" class="text-decoration-none text-dark fw-semibold">LoginMoto System</a>. All rights reserved.
             </div>
         </footer>
 

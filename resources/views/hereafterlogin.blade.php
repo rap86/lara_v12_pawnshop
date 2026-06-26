@@ -12,6 +12,9 @@
 			</div>
 			<div class="card-body">
                 <button class="btn btn-danger btnClickMe">Click me to show the Sweet Alert</button>
+                <button class="btn btn-success">
+                    <i class="bi bi-printer me-2"></i>Print PDF
+                </button>
 			</div>
 		</div>
 	</div>
