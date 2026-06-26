@@ -18,6 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/login_page', function () {
+    return view('login_page');
+})->middleware(['auth', 'verified'])->name('login_page');
+
 Route::fallback(function () {
     return view('errors.custom-404');
 });

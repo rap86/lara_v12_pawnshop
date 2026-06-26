@@ -13,26 +13,24 @@
 			<div class="card card-outline card-secondary">
 			<div class="card-header">
                 <a href="#" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
-				<h1 class="mb-0"><b>Pawnshop</b>Moto</h1>
+				<h1 class="mb-0"><b>Login</b>Moto</h1>
                 </a>
 			</div>
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
-				<form action="#" method="#">
-					<div class="input-group mb-1">
-						<div class="form-floating">
-							<input id="loginEmail" type="text" class="form-control" value="" placeholder="" autocomplete="off"/>
-							<label for="loginEmail">Username</label>
-						</div>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+					<div class="input-group mb-2">
+						<input id="loginEmail" type="email" name="email" class="form-control fs-4" value="{{ old('email') }}" placeholder="Username" autocomplete="off"/>
 						<div class="input-group-text">
 							<span class="bi bi-person"></span>
 						</div>
 					</div>
-					<div class="input-group mb-1">
-						<div class="form-floating">
-							<input id="loginPassword" type="password" class="form-control" placeholder="" />
-							<label for="loginPassword">Password</label>
-						</div>
+                    @foreach ($errors->get('email') as $error)
+                        <span class="text-danger">{{ $error }}</span><br>
+                    @endforeach
+					<div class="input-group mb-2">
+                        <input id="loginPassword" type="password" name="password" class="form-control fs-4" placeholder="Password" />
 						<div class="input-group-text">
 							<span class="bi bi-lock-fill"></span>
 						</div>
@@ -44,7 +42,7 @@
 						</div>
 						<div class="col-4">
 							<div class="d-grid gap-2">
-								<button type="submit" class="btn btn-primary">Sign In</button>
+								<button type="submit" class="btn btn-outline-secondary">Sign In</button>
 							</div>
 						</div>
 					</div>
