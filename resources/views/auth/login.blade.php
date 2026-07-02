@@ -47,12 +47,12 @@
                         @csrf
 
                         <div class="input-group mb-2 shadow-sm rounded border">
-                            <input id="loginEmail" type="email" name="email" class="form-control border-end-0 py-2 fs-5" value="{{ old('email') }}" placeholder="Username" autocomplete="off"/>
+                            <input id="loginEmail" type="text" name="username" class="form-control border-end-0 py-2 fs-5" value="{{ old('email') }}" placeholder="Username" autocomplete="off"/>
                             <div class="input-group-text bg-white border-start-0 text-muted">
                                 <span class="bi bi-person"></span>
                             </div>
                         </div>
-                        @error('email')
+                        @error('username')
                             <div class="text-danger small mb-2 ps-1"><i class="bi bi-exclamation-circle-fill me-1"></i> {{ $message }}</div>
                         @enderror
 

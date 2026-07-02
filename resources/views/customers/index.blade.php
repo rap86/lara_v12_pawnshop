@@ -82,25 +82,26 @@
             return `<a href="/lara_v12_pawnshop/public/customers/${id}" class="btn btn-secondary btn-sm"><i class="fa fa-eye"></i> View</a>`;
         };
 
-        // 2. Initialize Tabulator on the empty div container
-        const table = new Tabulator('#users-table', {
-            data: tableData, // Injecting the data array here
-            layout: 'fitColumns',
-            pagination: 'local', // Enable client-side pagination
-            paginationSize: 10,
-            paginationSizeSelector: [10, 25, 50, 100],
-            movableColumns: true,
-            // Match keys exactly with your Laravel Eloquent database columns
-            columns: [
-                { title: 'Id', field: 'id', width: 80, headerSort: true },
-                { title: 'Firstname', field: 'first_name' },
-                { title: 'Middlename', field: 'middle_name' },
-                { title: 'Lastname', field: 'last_name' },
-                { title: 'Birthdate', field: 'birthdate', formatter: formatDate },
-                { title: 'Gender', field: 'gender' },
-                { title: 'Action', formatter: actionButtons, hsortDownloads: false, headerSort: false, width: 100 }
-            ],
-        });
+       const table = new Tabulator('#users-table', {
+    data: tableData,
+    layout: 'fitColumns',        // Stretches columns to 100% width on Desktop
+    responsiveLayout: 'hide',    // <-- THE FIX: Allows columns to drop off/scroll on mobile instead of squishing!
+    pagination: 'local',
+    paginationSize: 10,
+    paginationSizeSelector: [10, 25, 50, 100],
+    movableColumns: true,
+
+    columns: [
+        { title: 'Id', field: 'id', width: 60, headerSort: true },
+        // Set minWidth on these columns so Tabulator knows exactly when to stop shrinking them
+        { title: 'Firstname', field: 'first_name', minWidth: 120 },
+        { title: 'Middlename', field: 'middle_name', minWidth: 120 },
+        { title: 'Lastname', field: 'last_name', minWidth: 120 },
+        { title: 'Birthdate', field: 'birthdate', formatter: formatDate, minWidth: 130 },
+        { title: 'Gender', field: 'gender', minWidth: 90 },
+        { title: 'Action', formatter: actionButtons, headerSort: false, width: 90 }
+    ],
+});
 
         // Global search filter logic
         document.getElementById('table-filter').addEventListener('input', (e) => {
