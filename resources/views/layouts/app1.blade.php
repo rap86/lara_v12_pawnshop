@@ -276,13 +276,13 @@
                             <li class="nav-item">
 								<a href="{{ route('customers.index')}}" class="nav-link">
 									<i class="nav-icon bi bi-people"></i>
-									<p>Customer</p>
+									<p>Customers</p>
 								</a>
 							</li>
                             <li class="nav-item">
 								<a href="#" class="nav-link">
 									<i class="nav-icon bi bi-people"></i>
-									<p>User</p>
+									<p>Users</p>
 								</a>
 							</li>
 							<li class="nav-item">
@@ -455,23 +455,27 @@
 			<!--end::Footer-->
 		</div>
 		<!--end::App Wrapper-->
-		<!--begin::Script-->
+
+        <!--begin::Script-->
 		<!--begin::Third Party Plugin(OverlayScrollbars)-->
 		<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
 		<!--end::Third Party Plugin(OverlayScrollbars)-->
-		<!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+
+        <!--begin::Required Plugin(popperjs for Bootstrap 5)-->
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 		<!--end::Required Plugin(popperjs for Bootstrap 5)-->
-		<!--begin::Required Plugin(Bootstrap 5)-->
+
+        <!--begin::Required Plugin(Bootstrap 5)-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 		<!--end::Required Plugin(Bootstrap 5)-->
 
+
         <script src="{{ asset('adminlte/js/jquery.min.js') }}"></script>
         <script src="{{ asset('adminlte/js/sweetalert2.all.min.js') }}"></script>
+
         <!--begin::Required Plugin(AdminLTE)-->
         <script src="{{ asset('adminlte/js/adminlte.js') }}"></script>
 		<!--end::Required Plugin(AdminLTE)-->
-
 
 		<!--begin::OverlayScrollbars Configure-->
 		<script>
@@ -497,6 +501,7 @@
 			});
 		</script>
 		<!--end::OverlayScrollbars Configure-->
+
 		<!--begin::Color Mode Toggle (#6010)-->
 		<script>
 			(() => {
@@ -562,6 +567,7 @@
 
         <script>
             $(document).ready(function () {
+
                 $('button.btnClickMe').click(function() {
                     Swal.fire({
                         icon: "success",
@@ -570,8 +576,72 @@
                         timer: 1500
                         });
                 });
-            });
 
+
+                // For flash message success
+                @if(Session::has('flash_success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: ' {{ Session::get('flash_success')}}',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                @endif
+
+                // For flash message failure
+                @if(Session::has('flash_failure'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: ' {{ Session::get('flash_failure')}}',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                @endif
+
+                // This will fire, every time cancel button click.
+                $('#btnCancelProcedure').click(function() {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops!',
+                        text: 'You cancelled the procedure.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+
+                 // This is for modal confirmation for global saving,edit etc...
+                $('div#btnModalConfirmationForNewRecord').click(function() {
+                    var attr_text = $(this).attr('data-text-message');
+                    var $this = $(this);
+                    modalConfirmation($this, attr_text);
+                });
+
+                // Function for modal dialog confirmation
+                function modalConfirmation($this, attr_text = 'save')
+                {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You want to add new record.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, '+attr_text+' it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            $this.parents('form').submit();
+                        } else {
+                            $('.modal').modal('hide');
+                        }
+                    })
+                }
+
+
+
+
+            });
         </script>
     </body>
 	<!--end::Body-->

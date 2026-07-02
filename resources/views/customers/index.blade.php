@@ -7,6 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Users</h3>
+                <a class="btn btn-secondary" href="{{ route('customers.create') }}">New Customer</a>
                 <div class="card-tools">
                     <div class="input-group" style="width: 20rem">
                         <span class="input-group-text">
@@ -78,7 +79,7 @@
         const actionButtons = (cell) => {
             const id = cell.getData().id;
             // You can generate your route dynamic string here if needed
-            return `<a href="/customers/${id}" class="btn btn-secondary btn-sm"><i class="fa fa-eye"></i> View</a>`;
+            return `<a href="/lara_v12_pawnshop/public/customers/${id}" class="btn btn-secondary btn-sm"><i class="fa fa-eye"></i> View</a>`;
         };
 
         // 2. Initialize Tabulator on the empty div container
