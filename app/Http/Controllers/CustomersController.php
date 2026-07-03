@@ -10,10 +10,22 @@ class CustomersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
-        return view('customers.index')->with('customers', $customers);
+        // Grab the search term from the query string (?search=...)
+        $search = $request->input('search');
+
+        $customers = Customer::query()
+            ->when($search, function ($query, $search) {
+                $query->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%");
+            })
+            ->latest()
+            // Laravel handles all the math, offsets, and SQL limits behind the scenes
+            ->paginate(20)
+            ->withQueryString(); // Keeps the search term active while switching pages
+
+        return view('customers.index', compact('customers'));
     }
 
     /**
@@ -29,7 +41,18 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        $customer_id = Customer::create($request->all())->id;
+        // 1. Validate incoming data BEFORE hitting the model
+        $validatedData = $request->validate([
+            'first_name'            => 'required|string|max:255',
+            'middle_name'           => 'required|string|max:255', // Change to 'nullable' if it's optional
+            'last_name'             => 'required|string|max:255',
+            'gender'                => 'required|string',
+            'address'               => 'required|string',
+            'cellphone_number'      => 'required|string',
+            // Add rules for your other fields here (e.g., cellphone_number, email)
+        ]);
+
+        $customer_id = Customer::create($validatedData)->id;
         return redirect()->route('customers.show', $customer_id)->with('flash_success', 'Customer Details Save.');
     }
 
@@ -49,7 +72,7 @@ class CustomersController extends Controller
      */
     public function edit(string $id)
     {
-
+        return view('customers.index');
     }
 
     /**

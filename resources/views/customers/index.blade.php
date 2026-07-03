@@ -1,126 +1,67 @@
 @extends('layouts.app1')
 
 @section('content')
-
 <div class="row">
-    <div class="col-md-12 col-sm-12 ">
-        <div class="card">
+    <div class="col-md-12">
+        <div class="card card-secondary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Users</h3>
-                <a class="btn btn-secondary" href="{{ route('customers.create') }}">New Customer</a>
-                <div class="card-tools">
-                    <div class="input-group" style="width: 20rem">
-                        <span class="input-group-text">
-                            <i class="bi bi-search" aria-hidden="true"></i>
-                        </span>
-                        <input
-                            id="table-filter"
-                            type="search"
-                            class="form-control"
-                            placeholder="Filter rows…"
-                            aria-label="Filter rows"
-                        />
-                    </div>
-                </div>
+                <span class="fs-5">Customer Registry</span>
             </div>
-
             <div class="card-body">
-                <div class="d-flex gap-2 mb-3">
-                    <button id="export-csv" type="button" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi bi-filetype-csv me-1" aria-hidden="true"></i> Export CSV
-                    </button>
-                    <button id="export-json" type="button" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi bi-filetype-json me-1" aria-hidden="true"></i> Export JSON
-                    </button>
-                    <button id="print-table" type="button" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi bi-printer me-1" aria-hidden="true"></i> Print
-                    </button>
-                </div>
-
-                @if(count($customers) > 0)
-                    {{-- Changed from <table> to a clean container <div> for Tabulator --}}
+                @if($customers->count() > 0)
                     <div class="table-responsive">
-                        <div id="users-table"></div>
+                        <table class="table table-striped table-bordered table-hover align-middle">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Firstname</th>
+                                    <th>Middlename</th>
+                                    <th>Lastname</th>
+                                    <th>Birthdate</th>
+                                    <th>Gender</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($customers as $customer)
+                                    <tr class="text-center">
+                                        <td>{{ $customer->first_name }}</td>
+                                        <td>{{ $customer->middle_name }}</td>
+                                        <td>{{ $customer->last_name }}</td>
+                                        <td>{{ $customer->birthdate ? \Carbon\Carbon::parse($customer->birthdate)->format('M j, Y') : '' }}</td>
+                                        <td>{{ $customer->gender }}</td>
+                                        <td>
+                                            <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-secondary btn-sm">
+                                                <i class="bi bi-eye"></i> View Records
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 @else
-                    <div class="alert alert-default">
-                        <h1 class="text-danger">Customer not found!</h1>
-                        <h6>Make sure you have typed the correct firstname/lastname of the customer.</h6>
-                        <hr>
-                        <a href="{{ route('customers.create') }}" class="btn btn-secondary btn-lg text-decoration-none">
-                            <i class="fa fa-plus"> </i> Create a new customer.
-                        </a>
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="bi bi-person-x text-muted" style="font-size: 5rem;"></i>
+                        </div>
+                        <h3 class="text-secondary">No matching customers found</h3>
+                        <p class="text-muted medium">We couldn't find anything matching "<strong>{{ request('search') }}</strong>". Try checking your spelling.</p>
+
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle me-1"></i> Clear Filter
+                            </a>
+                            <a href="{{ route('customers.create') }}" class="btn btn-primary">
+                                <i class="bi bi-plus-lg me-1"></i> Create New Customer
+                            </a>
+                        </div>
                     </div>
                 @endif
             </div>
-
-            <div class="card-footer text-secondary small">
-                Powered by <a href="https://tabulator.info/" target="_blank" rel="noopener">Tabulator</a> &mdash; vanilla JS, no jQuery required.
+            <div class="card-footer pt-3">
+                {{ $customers->links() }}
             </div>
         </div>
     </div>
 </div>
 @endsection
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. Safely feed the Laravel Eloquent collection directly into JS
-        const tableData = @json($customers);
-
-        // Optional custom date formatter to mimic your original Blade output
-        const formatDate = (cell) => {
-            const val = cell.getValue();
-            if (!val) return "";
-            const date = new Date(val);
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        };
-
-        // Action button formatter
-        const actionButtons = (cell) => {
-            const id = cell.getData().id;
-            // You can generate your route dynamic string here if needed
-            return `<a href="/lara_v12_pawnshop/public/customers/${id}" class="btn btn-secondary btn-sm"><i class="fa fa-eye"></i> View</a>`;
-        };
-
-       const table = new Tabulator('#users-table', {
-    data: tableData,
-    layout: 'fitColumns',        // Stretches columns to 100% width on Desktop
-    responsiveLayout: 'hide',    // <-- THE FIX: Allows columns to drop off/scroll on mobile instead of squishing!
-    pagination: 'local',
-    paginationSize: 10,
-    paginationSizeSelector: [10, 25, 50, 100],
-    movableColumns: true,
-
-    columns: [
-        { title: 'Id', field: 'id', width: 60, headerSort: true },
-        // Set minWidth on these columns so Tabulator knows exactly when to stop shrinking them
-        { title: 'Firstname', field: 'first_name', minWidth: 120 },
-        { title: 'Middlename', field: 'middle_name', minWidth: 120 },
-        { title: 'Lastname', field: 'last_name', minWidth: 120 },
-        { title: 'Birthdate', field: 'birthdate', formatter: formatDate, minWidth: 130 },
-        { title: 'Gender', field: 'gender', minWidth: 90 },
-        { title: 'Action', formatter: actionButtons, headerSort: false, width: 90 }
-    ],
-});
-
-        // Global search filter logic
-        document.getElementById('table-filter').addEventListener('input', (e) => {
-            const value = e.target.value;
-            if (value) {
-                table.setFilter([
-                    [
-                        { field: 'first_name', type: 'like', value: value },
-                        { field: 'last_name', type: 'like', value: value },
-                    ],
-                ]);
-            } else {
-                table.clearFilter();
-            }
-        });
-
-        // Export and Print Actions
-        document.getElementById('export-csv').addEventListener('click', () => table.download('csv', 'users.csv'));
-        document.getElementById('export-json').addEventListener('click', () => table.download('json', 'users.json'));
-        document.getElementById('print-table').addEventListener('click', () => table.print(false, true));
-    });
-</script>

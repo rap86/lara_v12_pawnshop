@@ -61,9 +61,8 @@
 
 		<!-- apexcharts -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.4.0/dist/css/tabulator_bootstrap5.min.css" crossorigin="anonymous"
-    />
-    </head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.4.0/dist/css/tabulator_bootstrap5.min.css" crossorigin="anonymous" />
+
 	<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 		<!--begin::App Wrapper-->
 		<div class="app-wrapper">
@@ -252,6 +251,27 @@
 					<nav class="mt-2" aria-label="Main navigation">
 						<!--begin::Sidebar Menu-->
 						<ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
+                            <li class="nav-item">
+								<a href="{{ route('customers.index')}}" class="nav-link">
+									<i class="nav-icon bi bi-people"></i>
+									<p>Customers</p>
+								</a>
+							</li>
+                            <li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="nav-icon bi bi-box-seam-fill"></i>
+									<p> Admin <i class="nav-arrow bi bi-chevron-right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="./widgets/small-box.html" class="nav-link">
+											<i class="nav-icon bi bi-people"></i>
+											<p>Users</p>
+										</a>
+									</li>
+								</ul>
+							</li>
                             <li class="nav-item menu-open">
 								<a href="#" class="nav-link active">
 									<i class="nav-icon bi bi-speedometer"></i>
@@ -263,39 +283,6 @@
 										<a href="./index.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
 											<p>Dashboard v1</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="./generate/theme.html" class="nav-link">
-									<i class="nav-icon bi bi-palette"></i>
-									<p>Theme Generate</p>
-								</a>
-							</li>
-                            <li class="nav-item">
-								<a href="{{ route('customers.index')}}" class="nav-link">
-									<i class="nav-icon bi bi-people"></i>
-									<p>Customers</p>
-								</a>
-							</li>
-                            <li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-people"></i>
-									<p>Users</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-box-seam-fill"></i>
-									<p> Widgets <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./widgets/small-box.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Small Box</p>
 										</a>
 									</li>
 								</ul>
@@ -416,7 +403,19 @@
 						<!--begin::Row-->
 						<div class="row">
 							<div class="col-sm-6">
-                                <input type="text" class="form-control fs-4" placeholder="Search the customer here...." aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="">
+                                    <form action="{{ route('customers.index') }}" method="GET" class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                        <input
+                                            type="search"
+                                            name="search"
+                                            class="form-control fs-4"
+                                            placeholder="Search by name..."
+                                            value="{{ request('search') }}"
+                                            onsearch="this.form.submit()"
+                                        />
+                                    </form>
+                                </div>
                             </div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-end">
