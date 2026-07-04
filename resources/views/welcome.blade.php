@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LoginMoto - Pawnshop Management System</title>
-        <link rel="stylesheet" href="{{ asset('adminlte/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap-icons.min.css') }}">
         <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.css') }}">
 
@@ -30,9 +29,6 @@
                             <a href="{{ route('hereafterlogin') }}" class="btn btn-outline-light rounded-pill px-4 btn-sm">Go to Dashboard</a>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-light rounded-pill px-4 btn-sm fw-medium">Log In</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-outline-light rounded-pill px-4 btn-sm">Register</a>
-                            @endif
                         @endauth
                     @endif
                 </div>

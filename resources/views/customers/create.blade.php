@@ -66,7 +66,7 @@
                     <label for="email" class="form-label small fw-semibold text-dark">Email Address</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light text-dark border-end-0"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control border-start-0" id="email" name="email" value="{{ old('email') }}">
+                        <input type="text" class="form-control border-start-0" id="email" name="email" value="{{ old('email') }}">
                     </div>
                 </div>
 

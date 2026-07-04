@@ -1,10 +1,10 @@
 
-<div class="modal fade" id="confirmationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmationModal_userInfoUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white py-3">
+            <div class="modal-header bg-success text-white py-3">
                 <h5 class="modal-title fw-bold" id="confirmationModalLabel">
-                    <i class="bi bi-question-circle me-2"></i>Confirm New Record
+                    <i class="bi bi-question-circle me-2"></i>Confirm Upate Record
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer bg-light border-top-0">
                 <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="confirmSubmitBtn" class="btn btn-primary px-4 shadow-sm">Yes, Save Records</button>
+                <button type="button" id="confirmSubmitBtn_userInfoUpdate" class="btn btn-success px-4 shadow-sm">Yes, Update Records</button>
             </div>
         </div>
     </div>
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let timeLeft = 3;
     let countdown; // <-- FIXED: Declared here so BOTH listeners can read/write to it
 
-    const form = document.getElementById('createFormGlobal');
-    const confirmModalElement = document.getElementById('confirmationModal');
-    const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+    const form = document.getElementById('editUserModalForm');
+    const confirmModalElement = document.getElementById('confirmationModal_userInfoUpdate');
+    const confirmSubmitBtn = document.getElementById('confirmSubmitBtn_userInfoUpdate');
 
     // Initialize Bootstrap's Modal object API wrapper instances natively
     const bsModal = new bootstrap.Modal(confirmModalElement);

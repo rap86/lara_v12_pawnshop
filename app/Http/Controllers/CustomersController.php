@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -42,15 +43,10 @@ class CustomersController extends Controller
     public function store(Request $request)
     {
         // 1. Validate incoming data BEFORE hitting the model
-        $validatedData = $request->validate([
-            'first_name'            => 'required|string|max:255',
-            'middle_name'           => 'required|string|max:255', // Change to 'nullable' if it's optional
-            'last_name'             => 'required|string|max:255',
-            'gender'                => 'required|string',
-            'cellphone_number'      => 'required|string|max:30',
-            'address'               => 'required|string|max:500'
-            // Add rules for your other fields here (e.g., cellphone_number, email)
-        ]);
+        $validatedData = $this->customerFields($request);
+
+        // 2. Inject the ID of the currently logged-in user
+        $validatedData['user_id'] = Auth::id();
 
         $customer_id = Customer::create($validatedData)->id;
         return redirect()->route('customers.show', $customer_id)->with('flash_success', 'Customer Details Save.');
@@ -81,14 +77,7 @@ class CustomersController extends Controller
     public function update(Request $request, string $id)
     {
        // 1. Add validation rules here
-        $validatedData = $request->validate([
-            'first_name'       => 'required|string|max:255',
-            'middle_name'      => 'required|string|max:255',
-            'last_name'        => 'required|string|max:255',
-            'gender'           => 'required|in:Male,Female,Other',
-            'cellphone_number' => 'required|string|max:30',
-            'address'          => 'required|string|max:500'
-        ]);
+        $validatedData = $this->customerFields($request);
 
         $customers = Customer::findOrFail($id);
 
@@ -104,5 +93,24 @@ class CustomersController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function customerFields(Request $request) {
+
+        $validatedData = $request->validate([
+            'first_name'       => 'required|string|max:255',
+            'middle_name'      => 'required|string|max:255',
+            'last_name'        => 'required|string|max:255',
+            'gender'           => 'required|string',
+            'birthdate'        => 'nullable|date',
+            'marital_status'   => 'nullable|string',
+            'email'            => 'nullable|string|max:255',
+            'cellphone_number' => 'required|string|max:30',
+            'occupation'       => 'nullable|string|max:255',
+            'address'          => 'required|string|max:500',
+            'details'          => 'nullable|string',
+        ]);
+
+        return $validatedData;
     }
 }

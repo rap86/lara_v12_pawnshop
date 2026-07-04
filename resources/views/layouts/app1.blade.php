@@ -5,7 +5,19 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{{ config('app.name', 'Pawnshop') }}</title>
 		<!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
-		<script>
+		<style>
+            /* Forces any secondary stacked modal backdrop to layer nicely on top of the first */
+            .modal-backdrop + .modal-backdrop {
+                z-index: 1060 !important;
+            }
+            #confirmationModal {
+                z-index: 1065 !important;
+            }
+            #confirmationModal_userInfoUpdate {
+                z-index: 1065 !important;
+            }
+        </style>
+        <script>
 			(() => {
 				'use strict';
 				const STORAGE_KEY = 'lte-theme';
@@ -46,7 +58,6 @@
 		<!-- Skip links will be dynamically added by accessibility.js -->
 		<meta name="supported-color-schemes" content="light dark" />
 
-        <link rel="stylesheet" href="{{ asset('adminlte/css/all.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap-icons.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.css') }}">
 
@@ -58,10 +69,6 @@
 		<!--begin::Third Party Plugin(OverlayScrollbars)-->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css" crossorigin="anonymous" />
 		<!--end::Third Party Plugin(OverlayScrollbars)-->
-
-		<!-- apexcharts -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.4.0/dist/css/tabulator_bootstrap5.min.css" crossorigin="anonymous" />
 
 	<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 		<!--begin::App Wrapper-->
@@ -252,7 +259,7 @@
 						<!--begin::Sidebar Menu-->
 						<ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
                             <li class="nav-item">
-								<a href="{{ route('customers.index')}}" class="nav-link">
+								<a href="{{ route('customers.index') }}" class="nav-link">
 									<i class="nav-icon bi bi-people"></i>
 									<p>Customers</p>
 								</a>
@@ -265,7 +272,7 @@
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="./widgets/small-box.html" class="nav-link">
+										<a href="{{ route('users.index') }}" class="nav-link">
 											<i class="nav-icon bi bi-people"></i>
 											<p>Users</p>
 										</a>
