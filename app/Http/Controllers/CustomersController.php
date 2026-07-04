@@ -47,8 +47,8 @@ class CustomersController extends Controller
             'middle_name'           => 'required|string|max:255', // Change to 'nullable' if it's optional
             'last_name'             => 'required|string|max:255',
             'gender'                => 'required|string',
-            'address'               => 'required|string',
-            'cellphone_number'      => 'required|string',
+            'cellphone_number'      => 'required|string|max:30',
+            'address'               => 'required|string|max:500'
             // Add rules for your other fields here (e.g., cellphone_number, email)
         ]);
 
@@ -80,8 +80,21 @@ class CustomersController extends Controller
      */
     public function update(Request $request, string $id)
     {
+       // 1. Add validation rules here
+        $validatedData = $request->validate([
+            'first_name'       => 'required|string|max:255',
+            'middle_name'      => 'required|string|max:255',
+            'last_name'        => 'required|string|max:255',
+            'gender'           => 'required|in:Male,Female,Other',
+            'cellphone_number' => 'required|string|max:30',
+            'address'          => 'required|string|max:500'
+        ]);
+
         $customers = Customer::findOrFail($id);
-        $customers->update($request->all());
+
+        // 2. Pass ONLY the validated data to the update method
+        $customers->update($validatedData);
+
         return redirect()->route('customers.show', $id)->with('flash_success', 'Customer Info updated!');
     }
 
