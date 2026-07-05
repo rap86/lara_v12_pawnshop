@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Customer::factory()->count(50)->create();
+        $this->call([ UserSeeder::class]);
+
     }
 }
