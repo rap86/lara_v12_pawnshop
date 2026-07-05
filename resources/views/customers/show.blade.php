@@ -49,7 +49,7 @@
                 </ul>
 
                 <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
+                    <button type="button" class="btn btn-success d-flex align-items-center justify-content-center py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
                         <i class="bi bi-pencil-square me-2"></i> Update Profile
                     </button>
                     <a href="#" class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2">
@@ -102,8 +102,5 @@
         </div>
     </div>
 </div>
-
-
-@include('elements.bs_modal_customer_info_update')
-@include('elements.bs_modal_confirmation')
+@include('elements.bs_modal_info_update_customer')
 @endsection

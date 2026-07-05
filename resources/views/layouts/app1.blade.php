@@ -6,14 +6,15 @@
         <title>{{ config('app.name', 'Pawnshop') }}</title>
 		<!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
 		<style>
-            /* Forces any secondary stacked modal backdrop to layer nicely on top of the first */
-            .modal-backdrop + .modal-backdrop {
-                z-index: 1060 !important;
+            /* 1. Automatically recalculates and layers cascading stacked backdrops correctly */
+            .modal-backdrop.show:nth-of-type(even) {
+                z-index: 1061 !important;
             }
-            #confirmationModal {
-                z-index: 1065 !important;
-            }
-            #confirmationModal_userInfoUpdate {
+
+            /* 2. Forces all global confirmation modals to float cleanly on top of existing modal states */
+            #confirmationModalAdd,
+            #confirmationModalUpdate,
+            #confirmationModalDelete {
                 z-index: 1065 !important;
             }
         </style>
@@ -185,7 +186,13 @@
 						<li class="nav-item dropdown user-menu">
 							<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 								<img src="{{ asset('adminlte/assets/img/user2-160x160.jpg') }}" class="user-image rounded-circle shadow" alt="User Image" />
-								<span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+								@auth
+                                    <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                                @endauth
+
+                                @guest
+                                    <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary">Log In</a>
+                                @endguest
 							</a>
 							<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 								<!--begin::User Image-->
@@ -215,7 +222,7 @@
 								<!--end::Menu Body-->
 								<!--begin::Menu Footer-->
 								<li class="user-footer">
-									<a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary">Profile</a>
+									<a href="#" class="btn btn-outline-secondary">Profile</a>
                                     <form method="POST" action="{{ route('logout') }}" class=" float-end">
                                         @csrf
 
@@ -583,7 +590,6 @@
                         });
                 });
 
-
                 // For flash message success
                 @if(Session::has('flash_success'))
                     Swal.fire({
@@ -617,38 +623,12 @@
                     });
                 });
 
-                 // This is for modal confirmation for global saving,edit etc...
-                $('div#btnModalConfirmationForNewRecord').click(function() {
-                    var attr_text = $(this).attr('data-text-message');
-                    var $this = $(this);
-                    modalConfirmation($this, attr_text);
-                });
-
-                // Function for modal dialog confirmation
-                function modalConfirmation($this, attr_text = 'save')
-                {
-                    Swal.fire({
-                        title: "Are you sure?",
-                        text: "You want to add new record.",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, '+attr_text+' it!'
-                    }).then((result) => {
-                        if (result.value) {
-                            $this.parents('form').submit();
-                        } else {
-                            $('.modal').modal('hide');
-                        }
-                    })
-                }
-
-
-
-
             });
         </script>
+
+        @include('elements.bs_modal_confirmation_record_add')
+        @include('elements.bs_modal_confirmation_record_update')
+        @include('elements.bs_modal_confirmation_record_delete')
     </body>
 	<!--end::Body-->
 </html>

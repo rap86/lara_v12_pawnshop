@@ -1,14 +1,14 @@
-<<div class="modal fade" id="updateProfileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateProfileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header bg-primary text-white py-3">
+            <div class="modal-header bg-success text-white py-3">
                 <h5 class="modal-title fw-bold" id="updateProfileModalLabel">
                     <i class="bi bi-person-gear me-2"></i>Update Customer Profile
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="createFormGlobal" action="{{ route('customers.update', $customers->id) }}" method="POST">
+            <form action="{{ route('customers.update', $customers->id) }}" method="POST" data-confirm-update>
                 @csrf
                 @method('PUT')
 
@@ -99,12 +99,10 @@
                             <textarea class="form-control" id="details" name="details" rows="3" placeholder="Enter any extra comments or notes...">{{ old('details', $customers->details) }}</textarea>
                         </div>
                     </div>
-                </div>
-
-                <div class="modal-footer bg-light border-top-0 px-4">
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" id="btnCancelProcedure">Cancel</button>
-                    <button type="submit" class="btn btn-primary px-4 shadow-sm">Save Changes</button>
-            </div>
+                    <div class="modal-footer bg-light border-top-0 px-4">
+                        <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" id="btnCancelProcedure">Cancel</button>
+                        <button type="submit" class="btn btn-success px-4 shadow-sm">Save Changes</button>
+                    </div>
                 </div>
             </form>
         </div>

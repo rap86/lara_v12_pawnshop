@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="createFormGlobal" action="{{ route('users.store') }}" method="POST">
+            <form action="{{ route('users.store') }}" method="POST" data-confirm-add>
                 @csrf
                 <div class="modal-body p-4">
 
@@ -44,6 +44,18 @@
                                 <option value="" selected disabled>Select system access tier...</option>
                                 <option value="clerk">Clerk</option>
                                 <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="role" class="form-label small fw-semibold text-dark">Status</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="" selected disabled>Select user status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
                             </select>
                         </div>
                     </div>

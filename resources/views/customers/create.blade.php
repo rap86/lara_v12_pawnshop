@@ -8,7 +8,7 @@
         </h5>
     </div>
 
-    <form id="createFormGlobal" action="{{ route('customers.store') }}" method="POST">
+    <form action="{{ route('customers.store') }}" method="POST" data-confirm-add>
         @csrf
 
         <div class="card-body p-4">
@@ -116,5 +116,4 @@
     </form>
 </div>
 
-@include('elements.bs_modal_confirmation')
 @endsection

@@ -22,6 +22,7 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Status</th>
                         <th>Account Created</th>
                         <th>Actions</th>
                     </tr>
@@ -46,6 +47,14 @@
                                     {{ $user->role }}
                                 </span>
                             </td>
+                            <td>
+                                <span class="badge rounded-pill px-2.5 py-1 border
+                                    {{ $user->status === 'active'
+                                        ? 'bg-success-subtle text-success border-success-subtle'
+                                        : 'bg-danger-subtle text-danger border-danger-subtle' }}">
+                                    {{ ucfirst($user->status) }}
+                                </span>
+                            </td>
                             <td class="text-secondary">{{ $user->created_at->format('M d, Y h:i A') }}</td>
                             <td>
                                 <div class="btn-group" role="group">
@@ -57,10 +66,15 @@
                                             data-name="{{ $user->name }}"
                                             data-username="{{ $user->username }}"
                                             data-email="{{ $user->email }}"
-                                            data-role="{{ $user->role }}">
+                                            data-role="{{ $user->role }}"
+                                            data-status="{{ $user->status }}">
                                         <i class="bi bi-pencil-square"></i> Update
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button" class="btn btn-outline-danger btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteUserModal"
+                                            data-id="{{ $user->id }}"
+                                            data-name="{{ $user->name }}">
                                         <i class="bi bi-trash3"></i> Delete
                                     </button>
                                 </div>
@@ -97,10 +111,11 @@
 </div>
 
 {{-- This is for user registration --}}
-@include('elements.bs_modal_user_registration')
-@include('elements.bs_modal_confirmation')
+@include('elements.bs_modal_info_add_user')
 
 {{-- This is for user info update --}}
-@include('elements.bs_modal_user_info_update')
-@include('elements.bs_modal_confirmation_user_update')
+@include('elements.bs_modal_info_update_user')
+
+{{-- This is for user info delete --}}
+@include('elements.bs_modal_info_delete_user')
 @endsection

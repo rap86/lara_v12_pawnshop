@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="editUserModalForm" class="editUserForm" action="" method="POST">
+            <form class="editUserForm" action="" method="POST" data-confirm-update>
                 @csrf
                 @method('PUT')
 
@@ -45,6 +45,17 @@
                             <select class="form-select" id="edit_role" name="role" required>
                                 <option value="clerk">Clerk</option>
                                 <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_status" class="form-label small fw-semibold text-dark">Status</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
+                            <select class="form-select" id="edit_status" name="status" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
                             </select>
                         </div>
                     </div>
@@ -98,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const username = button.getAttribute('data-username');
             const email = button.getAttribute('data-email');
             const role = button.getAttribute('data-role');
+            const status = button.getAttribute('data-status');
 
             // Update the form's action URL dynamically targeting route('users.update', id)
             const form = document.getElementsByClassName('editUserForm')[0];
@@ -108,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('edit_username').value = username;
             document.getElementById('edit_email').value = email;
             document.getElementById('edit_role').value = role;
+            document.getElementById('edit_status').value = status;
 
             // Reset password entry forms on open context
             document.getElementById('edit_password').value = '';
