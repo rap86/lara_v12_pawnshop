@@ -15,6 +15,9 @@
                 <button class="btn btn-success">
                     <i class="bi bi-printer me-2"></i>Print PDF
                 </button>
+                <a href="{{ route('database.download') }}" class="btn btn-primary shadow-sm">
+                    <i class="bi bi-download me-2"></i>Backup & Download Database
+                </a>
 			</div>
 		</div>
 	</div>

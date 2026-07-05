@@ -63,7 +63,7 @@
                             </div>
                         </div>
 
-                        <div class="row align-items-center">
+                        <div class="row align-items-center mb-3">
                             <div class="col-6"></div>
                             <div class="col-6">
                                 <div class="d-grid">
@@ -72,6 +72,13 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="text-center mt-3 pt-3 border-top border-light-subtle">
+                        <a href="{{ url('/') }}" class="text-secondary small text-decoration-none d-inline-flex align-items-center link-dark">
+                            <i class="bi bi-arrow-left me-1.5"></i> Back to Home
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>

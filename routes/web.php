@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\BackupsController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Guest / Public Access
@@ -30,9 +31,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Customers Management (Moved inside auth for safety!)
     Route::resource('customers', CustomersController::class);
 
+
+    // Protect this route with auth middleware so regular guests can't extract your database info!
+    Route::get('/database/download', [BackupsController::class, 'download_database'])
+        ->middleware('auth')
+        ->name('database.download');
+
 });
 
+
 // 3. System Fallback & Auth files
+// 404 is a Global Fallback, Not a Protected Route
 Route::fallback(function () {
     return view('errors.custom-404');
 });
