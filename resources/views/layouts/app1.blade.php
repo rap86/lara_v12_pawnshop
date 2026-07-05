@@ -86,8 +86,19 @@
 							</a>
 						</li>
 						<li class="nav-item d-none d-md-block">
-							<a href="#" class="nav-link">
-								<i class="bi bi-grid-1x2 me-1" aria-hidden="true"></i> Live preview </a>
+							<a href="{{ route('database.download') }}" class="btn btn-secondary shadow-sm nav-link border" alt="download db">
+                                <span class="d-inline-block position-relative">
+                                    <i class="bi bi-download"></i>
+                                    <i class="bi bi-database-down"></i> Backup DB
+                                </span>
+                            </a>
+						</li>
+                        <li class="nav-item d-none d-md-block">
+							<a href="{{ route('dashboards.index') }}" class="btn btn-secondary shadow-sm nav-link border" alt="download db">
+                                <span class="d-inline-block position-relative">
+                                    <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                                </span>
+                            </a>
 						</li>
 					</ul>
 					<!--end::Start Navbar Links-->

@@ -3,6 +3,8 @@
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BackupsController;
+use App\Http\Controllers\PrintsController;
+use App\Http\Controllers\DashboardsController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Guest / Public Access
@@ -37,7 +39,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('auth')
         ->name('database.download');
 
+    Route::get('/print_customer_info', [PrintsController::class, 'print_customer_info'])->name('prints.print_customer_info');
+
+    Route::get('/dashboard', [DashboardsController::class, 'index'])->name('dashboards.index');
+
 });
+
 
 
 // 3. System Fallback & Auth files

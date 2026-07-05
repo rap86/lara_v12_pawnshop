@@ -5,7 +5,12 @@
     <div class="col-md-12">
         <div class="card card-secondary card-outline">
             <div class="card-header">
-                <span class="fs-5">Customer Registry</span>
+                <span class="fs-5 fw-semibold align-middle">Customer Registry</span>
+                <div class="float-end">
+                    <a href="{{ route('prints.print_customer_info') }}" target="_blank" class="btn btn-warning shadow-sm">
+                        <i class="bi bi-printer me-1"></i> Print Customer List
+                    </a>
+                </div>
             </div>
             <div class="card-body">
                 @if($customers->count() > 0)
@@ -30,7 +35,7 @@
                                         <td>{{ $customer->birthdate ? \Carbon\Carbon::parse($customer->birthdate)->format('M j, Y') : '' }}</td>
                                         <td>{{ $customer->gender }}</td>
                                         <td>
-                                            <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-outline-dark">
                                                 <i class="bi bi-eye"></i> View Records
                                             </a>
                                         </td>

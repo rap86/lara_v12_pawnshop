@@ -6,7 +6,6 @@
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h4 class="fw-bold mb-0 text-dark">System Users</h4>
-                <p class="text-muted small mb-0">Manage system administrators and pawnshop staff members.</p>
             </div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 <i class="bi bi-person-plus-fill me-2"></i>Add System User
