@@ -5,6 +5,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BackupsController;
 use App\Http\Controllers\PrintsController;
 use App\Http\Controllers\DashboardsController;
+use App\Http\Controllers\BranchesController;
+use App\Http\Controllers\BranchSessionsController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Guest / Public Access
@@ -42,7 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/print_customer_info', [PrintsController::class, 'print_customer_info'])->name('prints.print_customer_info');
 
     Route::get('/dashboard', [DashboardsController::class, 'index'])->name('dashboards.index');
+    Route::resource('branches', BranchesController::class);
 
+    Route::post('/switch-branch', [BranchSessionsController::class, 'switch'])->name('branch.switch');
 });
 
 

@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('customers', function (Blueprint $table) {
-            // $table->id();
-            // $table->timestamps();
-
-            $table->bigIncrements('id');
+            $table->id();
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->string('first_name',20);
             $table->string('middle_name',20)->nullable();
             $table->string('last_name',20);
@@ -30,8 +28,19 @@ return new class extends Migration
             $table->string('image_name',1000)->nullable();
             $table->string('image_location',150)->nullable();
             $table->string('image_size',20)->nullable();
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+
+            // Foreign Key Constraints
+            $table->foreign('branch_id')
+                    ->references('id')
+                    ->on('branches')
+                    ->onDelete('set null');
+
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('set null');
 
         });
     }

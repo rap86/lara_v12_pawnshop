@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'password' => Hash::make('panuelos'), // Securely hashes the password
             'status' => 'active',
+            'branch_id' => 1
         ]);
 
         // Create a Standard/Clerk account
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'role' => 'clerk',
             'password' => Hash::make('iamtheclerk'),
             'status' => 'active',
+            'branch_id' => 2
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
+use App\Models\Branch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomerFactory extends Factory
@@ -27,6 +28,7 @@ class CustomerFactory extends Factory
             'image_location' => 'uploads/customers/',
             'image_size' => '45 KB',
             'user_id' => 1, // Assumes you have a default system user with ID 1, or leave null if preferred
+            'branch_id' => fn () => Branch::inRandomOrder()->first()?->id ?? Branch::factory(),
         ];
     }
 }

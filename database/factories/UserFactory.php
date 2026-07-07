@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Branch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -27,9 +28,21 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'username' => fake()->unique()->userName(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+
+            // Randomly assigns either 'admin' or 'clerk'
+            'role' => fake()->randomElement(['admin', 'clerk']),
+
+            // Randomly assigns either 'active' or 'inactive'
+            'status' => fake()->randomElement(['active', 'inactive']),
+
+            'is_floating' => false,
             'remember_token' => Str::random(10),
+
+            // Dynamically attaches an existing branch ID or spins one up
+            'branch_id' => fn () => Branch::inRandomOrder()->first()?->id ?? Branch::factory(),
         ];
     }
 

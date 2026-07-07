@@ -86,7 +86,7 @@
 							</a>
 						</li>
 						<li class="nav-item d-none d-md-block">
-							<a href="{{ route('database.download') }}" class="btn btn-secondary shadow-sm nav-link border" alt="download db">
+							<a href="{{ route('database.download') }}" class="btn btn-secondary shadow-sm nav-link border" alt="Download db">
                                 <span class="d-inline-block position-relative">
                                     <i class="bi bi-download"></i>
                                     <i class="bi bi-database-down"></i> Backup DB
@@ -94,7 +94,7 @@
                             </a>
 						</li>
                         <li class="nav-item d-none d-md-block">
-							<a href="{{ route('dashboards.index') }}" class="btn btn-secondary shadow-sm nav-link border" alt="download db">
+							<a href="{{ route('dashboards.index') }}" class="btn btn-secondary shadow-sm nav-link border" alt="Dashboard">
                                 <span class="d-inline-block position-relative">
                                     <i class="bi bi-grid-1x2-fill"></i> Dashboard
                                 </span>
@@ -265,7 +265,9 @@
 						<img src="{{ asset('adminlte/assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
 						<!--end::Brand Image-->
 						<!--begin::Brand Text-->
-						<span class="brand-text fw-light">AdminLTE 4</span>
+						<span class="brand-text fw-light">AdminLTE 4
+                            {{ auth()->user()->role }}
+                        </span>
 						<!--end::Brand Text-->
 					</a>
 					<!--end::Brand Link-->
@@ -275,6 +277,24 @@
 				<div class="sidebar-wrapper">
 					<nav class="mt-2" aria-label="Main navigation">
 						<!--begin::Sidebar Menu-->
+
+                        <div class="px-3 py-2">
+                            <form id="branch-switch-form" action="{{ route('branch.switch') }}" method="POST">
+                                @csrf
+                                <select name="branch_id" class="form-select bg-dark text-white border-secondary" onchange="document.getElementById('branch-switch-form').submit();">
+                                    @if(auth()->user()->role === 'admin')
+                                        <option value="" {{ is_null($currentBranch) ? 'selected' : '' }}>All Branches (Global)</option>
+                                    @endif
+
+                                    @foreach($sidebarBranches as $branch)
+                                        <option value="{{ $branch->id }}" {{ ($currentBranch && $currentBranch->id == $branch->id) ? 'selected' : '' }}>
+                                            {{ $branch->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        </div>
+
 						<ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
                             <li class="nav-item">
 								<a href="{{ route('customers.index') }}" class="nav-link">
@@ -293,6 +313,14 @@
 										<a href="{{ route('users.index') }}" class="nav-link">
 											<i class="nav-icon bi bi-people"></i>
 											<p>Users</p>
+										</a>
+									</li>
+								</ul>
+                                <ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="{{ route('branches.index') }}" class="nav-link">
+											<i class="nav-icon bi bi-house"></i>
+											<p>Branches</p>
 										</a>
 									</li>
 								</ul>

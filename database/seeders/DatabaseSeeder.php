@@ -22,9 +22,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            BranchSeeder::class,
+        ]);
+        $this->call([
+            UserSeeder::class]);
 
         Customer::factory()->count(50)->create();
-        $this->call([ UserSeeder::class]);
-
     }
 }

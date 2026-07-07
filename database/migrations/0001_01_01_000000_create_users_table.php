@@ -13,13 +13,27 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+              // 1. Create the column (Matches $table->id() on branches)
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->string('name');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('role');
-            $table->string('status');
+            $table->string('role'); // e.g., 'admin', 'clerk'
+
+            // Set a default status so newly created users are active by default
+            $table->string('status')->default('active');
+
+            // 2. Define the foreign key constraint
+            $table->foreign('branch_id')
+                ->references('id')
+                ->on('branches')
+                ->onDelete('set null'); // Keeps the user but clears their branch if the branch is deleted
+
+            // Native true/false switch, defaults to false for standard staff
+            $table->boolean('is_floating')->default(false);
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
-        <div class="card card-secondary card-outline">
-            <div class="card-header">
+    <div class="col-12">
+        <div class="card shadow-lg">
+            <div class="card-header border-0">
                 <span class="fs-5 fw-semibold align-middle">Customer Registry</span>
                 <div class="float-end">
-                    <a href="{{ route('prints.print_customer_info') }}" target="_blank" class="btn btn-warning shadow-sm">
+                    <a href="{{ route('prints.print_customer_info') }}" target="_blank" class="btn btn-outline-dark shadow-sm">
                         <i class="bi bi-printer me-1"></i> Print Customer List
                     </a>
                 </div>
@@ -15,9 +15,10 @@
             <div class="card-body">
                 @if($customers->count() > 0)
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover align-middle">
+                        <table class="table table-striped table-hover align-middle">
                             <thead>
                                 <tr class="text-center">
+                                    <th>id</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
                                     <th>Lastname</th>
@@ -27,8 +28,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i = 1;?>
                                 @foreach($customers as $customer)
                                     <tr class="text-center">
+                                        <td>{{ $i++; }}</td>
                                         <td>{{ $customer->first_name }}</td>
                                         <td>{{ $customer->middle_name }}</td>
                                         <td>{{ $customer->last_name }}</td>
@@ -63,7 +66,7 @@
                     </div>
                 @endif
             </div>
-            <div class="card-footer pt-3">
+            <div class="card-footer border-0 pt-4 py-3 px-4">
                 {{ $customers->links() }}
             </div>
         </div>

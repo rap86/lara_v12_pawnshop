@@ -13,7 +13,7 @@ class CustomersController extends Controller
      */
     public function index(Request $request)
     {
-        // Grab the search term from the query string (?search=...)
+       /*
         $search = $request->input('search');
 
         $customers = Customer::query()
@@ -22,11 +22,37 @@ class CustomersController extends Controller
                     ->orWhere('last_name', 'like', "%{$search}%");
             })
             ->latest()
-            // Laravel handles all the math, offsets, and SQL limits behind the scenes
-            ->paginate(20)
-            ->withQueryString(); // Keeps the search term active while switching pages
 
-        return view('customers.index', compact('customers'));
+            ->paginate(20)
+            ->withQueryString();
+            */
+        $user = Auth::user();
+        $search = $request->input('search');
+
+        // 1. Determine the active branch context
+        // Admin/Floating can switch via session; regular staff are locked to their own branch_id
+        $activeBranchId = ($user->role === 'admin' || $user->is_floating)
+            ? session('active_branch_id', $user->branch_id)
+            : $user->branch_id;
+
+        // 2. Build the query
+        $customers = Customer::query()
+            // Filter by branch context if an active branch ID is present
+            ->when($activeBranchId, function ($query, $branchId) {
+                return $query->where('branch_id', $branchId);
+            })
+            // Apply search parameters safely grouped within a nested closure
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($subQuery) use ($search) {
+                    $subQuery->where('first_name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(20)
+            ->withQueryString();
+
+            return view('customers.index', compact('customers'));
     }
 
     /**

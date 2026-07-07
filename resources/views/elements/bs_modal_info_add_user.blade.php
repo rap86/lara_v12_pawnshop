@@ -59,6 +59,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label small fw-semibold text-dark">Branch</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
+                            <select class="form-select" id="branch_id" name="branch_id" required>
+                                <option value="" selected disabled>Select branch</option>
+                                <option value="1">Branch 1</option>
+                                <option value="2">Branch 2</option>
+                                <option value="3">Branch 3</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <hr class="text-muted my-3 opacity-25">
 

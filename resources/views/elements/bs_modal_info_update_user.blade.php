@@ -60,6 +60,18 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="edit_status" class="form-label small fw-semibold text-dark">Branch</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
+                            <select class="form-select" id="edit_branch_id" name="branch_id" required>
+                                <option value="1">Branch 1</option>
+                                <option value="2">Branch 2</option>
+                                <option value="3">Branch 3</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="p-3 bg-light rounded border border-dashed mb-3 mt-4">
                         <div class="d-flex">
                             <i class="bi bi-info-circle-fill text-secondary me-2 fs-5"></i>
