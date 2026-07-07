@@ -124,7 +124,7 @@
     @endif
 </div>
 
-{{-- This is for branch registration
+
 @include('elements.bs_modal_info_add_branch')
 
 
@@ -132,5 +132,5 @@
 
 
 @include('elements.bs_modal_info_delete_branch')
---}}
+
 @endsection

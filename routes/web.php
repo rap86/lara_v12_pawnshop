@@ -32,6 +32,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
+    // Brahch Management
+    Route::get('/branches', [BranchesController::class, 'index'])->name('branches.index');
+    Route::post('/branches', [BranchesController::class, 'store'])->name('branches.store');
+    Route::put('/branches/{id}', [BranchesController::class, 'update'])->name('branches.update');
+    Route::delete('/branches/{id}', [BranchesController::class, 'destroy'])->name('branches.destroy');
+
+
     // Customers Management (Moved inside auth for safety!)
     Route::resource('customers', CustomersController::class);
 
@@ -44,7 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/print_customer_info', [PrintsController::class, 'print_customer_info'])->name('prints.print_customer_info');
 
     Route::get('/dashboard', [DashboardsController::class, 'index'])->name('dashboards.index');
-    Route::resource('branches', BranchesController::class);
+
+
 
     Route::post('/switch-branch', [BranchSessionsController::class, 'switch'])->name('branch.switch');
 });

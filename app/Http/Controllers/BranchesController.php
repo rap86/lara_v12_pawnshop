@@ -23,6 +23,7 @@ class BranchesController extends Controller
         $validated = $request->validate([
             'name'     => ['required', 'string', 'max:255', 'unique:branches,name'],
             'location' => ['required', 'string', 'max:255'],
+            'code'     => ['required', 'string', 'max:20'],
             'status'   => ['required', 'string', 'in:active,inactive']
         ]);
 
@@ -30,6 +31,7 @@ class BranchesController extends Controller
         Branch::create([
             'name'     => $validated['name'],
             'location' => $validated['location'],
+            'code'     => $validated['code'],
             'status'   => $validated['status']
         ]);
 
@@ -47,12 +49,14 @@ class BranchesController extends Controller
             // Check unique constraint but ignore this branch's current name
             'name'     => ['required', 'string', 'max:255', Rule::unique('branches', 'name')->ignore($branch->id)],
             'location' => ['required', 'string', 'max:255'],
+            'code'     => ['required', 'string', 'max:20'],
             'status'   => ['required', 'string', 'in:active,inactive']
         ]);
 
         // 3. Update standard profile details
         $branch->name     = $validated['name'];
         $branch->location = $validated['location'];
+        $branch->code     = $validated['code'];
         $branch->status   = $validated['status'];
 
         // 4. Save the dirty tracking states into the database matrix

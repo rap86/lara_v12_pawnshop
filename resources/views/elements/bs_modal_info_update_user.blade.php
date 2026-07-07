@@ -61,13 +61,13 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit_status" class="form-label small fw-semibold text-dark">Branch</label>
+                        <label for="edit_branch_id" class="form-label small fw-semibold text-dark">Branch</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
                             <select class="form-select" id="edit_branch_id" name="branch_id" required>
-                                <option value="1">Branch 1</option>
-                                <option value="2">Branch 2</option>
-                                <option value="3">Branch 3</option>
+                                @foreach ($branches as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = button.getAttribute('data-email');
             const role = button.getAttribute('data-role');
             const status = button.getAttribute('data-status');
-
+            const branch_id = button.getAttribute('data-branch_id');
             // Update the form's action URL dynamically targeting route('users.update', id)
             const form = document.getElementsByClassName('editUserForm')[0];
             form.action = `/users/${id}`;
@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('edit_email').value = email;
             document.getElementById('edit_role').value = role;
             document.getElementById('edit_status').value = status;
+            document.getElementById('edit_branch_id').value = branch_id;
 
             // Reset password entry forms on open context
             document.getElementById('edit_password').value = '';

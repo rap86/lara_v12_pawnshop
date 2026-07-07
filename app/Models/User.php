@@ -57,6 +57,6 @@ class User extends Authenticatable
     {
         // Because you named the column 'branch_id',
         // Laravel automatically maps this to the branches table.
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
 }

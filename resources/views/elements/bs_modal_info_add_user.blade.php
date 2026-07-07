@@ -65,9 +65,9 @@
                             <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
                             <select class="form-select" id="branch_id" name="branch_id" required>
                                 <option value="" selected disabled>Select branch</option>
-                                <option value="1">Branch 1</option>
-                                <option value="2">Branch 2</option>
-                                <option value="3">Branch 3</option>
+                                @foreach ($branches as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

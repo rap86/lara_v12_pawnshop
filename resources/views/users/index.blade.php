@@ -11,6 +11,7 @@
                 <i class="bi bi-person-plus-fill me-2"></i>Add System User
             </button>
         </div>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -70,7 +71,7 @@
                                     {{ ucfirst($user->status) }}
                                 </span>
                             </td>
-                            <td>{{ $user->branch_id }}
+                            <td>{{ $user->branch->name }}
                             </td>
                             <td class="text-secondary">{{ $user->created_at->format('M d, Y h:i A') }}</td>
                             <td>
@@ -84,7 +85,8 @@
                                             data-username="{{ $user->username }}"
                                             data-email="{{ $user->email }}"
                                             data-role="{{ $user->role }}"
-                                            data-status="{{ $user->status }}">
+                                            data-status="{{ $user->status }}"
+                                            data-branch_id="{{ $user->branch_id }}">
                                         <i class="bi bi-pencil-square"></i> Update
                                     </button>
                                     <button type="button" class="btn btn-outline-danger"
@@ -127,10 +129,10 @@
 </div>
 
 {{-- This is for user registration --}}
-@include('elements.bs_modal_info_add_user')
+@include('elements.bs_modal_info_add_user', ['branches' => $branches])
 
 {{-- This is for user info update --}}
-@include('elements.bs_modal_info_update_user')
+@include('elements.bs_modal_info_update_user', ['branches' => $branches])
 
 {{-- This is for user info delete --}}
 @include('elements.bs_modal_info_delete_user')
