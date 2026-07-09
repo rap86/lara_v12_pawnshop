@@ -124,74 +124,25 @@
 						<!--end::Navbar Search-->
 						<!--begin::Messages Dropdown Menu-->
 						<li class="nav-item dropdown">
-							<a class="nav-link" data-bs-toggle="dropdown" href="#">
-								<i class="bi bi-chat-text"></i>
-								<span class="navbar-badge badge text-bg-danger">3</span>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="{{ asset('adminlte/assets/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> Brad Diesel <span class="float-end fs-7 text-danger">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">Call me whenever you can...</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="{{ asset('adminlte/assets/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> John Pierce <span class="float-end fs-7 text-secondary">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">I got your message bro</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="{{ asset('adminlte/assets/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> Nora Silvester <span class="float-end fs-7 text-warning">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">The subject goes here</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-							</div>
-						</li>
+                            <a class="nav-link" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                                <i class="bi bi-chat-left-text"></i>
+                                <span class="badge text-bg-danger navbar-badge d-none" id="nav-msg-badge-count">0</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end" style="min-width: 320px;">
+                                <span class="dropdown-item dropdown-header text-start fw-bold border-bottom" id="nav-msg-header-text">
+                                    No New Messages
+                                </span>
+
+                                <div id="nav-notifications-box-target">
+                                    <div class="p-3 text-center text-muted small">Loading updates...</div>
+                                </div>
+
+                                <a href="{{ route('chat.index') }}" class="dropdown-item dropdown-footer text-center small text-muted py-2 border-top">
+                                    See All Messages
+                                </a>
+                            </div>
+                        </li>
 						<!--end::Messages Dropdown Menu-->
 						<!--begin::Notifications Dropdown Menu-->
 						<li class="nav-item dropdown">
@@ -1093,6 +1044,103 @@
         @include('elements.bs_modal_confirmation_record_add')
         @include('elements.bs_modal_confirmation_record_update')
         @include('elements.bs_modal_confirmation_record_delete')
+
+        <script>
+            function checkGlobalChatNotifications() {
+                const targetElements = document.querySelectorAll('#nav-notifications-box-target, .nav-notifications-box-target');
+                const badgeElements = document.querySelectorAll('#nav-msg-badge-count, .navbar-badge');
+                const headerElements = document.querySelectorAll('#nav-msg-header-text');
+
+                if (targetElements.length === 0) return;
+
+                fetch("/ajax-chat/notifications", {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("HTTP error " + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    // Update all badge counters across layout frameworks
+                    badgeElements.forEach(badge => {
+                        if (data.count > 0) {
+                            badge.textContent = data.count;
+                            badge.classList.remove('d-none');
+                            badge.style.setProperty('display', 'inline-block', 'important');
+                        } else {
+                            badge.classList.add('d-none');
+                        }
+                    });
+
+                    headerElements.forEach(header => {
+                        header.textContent = data.count > 0 ? `${data.count} New Messages` : "No New Messages";
+                    });
+
+                    let listHtml = '';
+                    if (data.notifications && data.notifications.length > 0) {
+                        data.notifications.forEach(item => {
+                            // 🌟 The code template block belongs INSIDE this loop!
+                            listHtml += `
+                                <a href="javascript:void(0);" onclick="clearNotificationRoom(${item.conversation_id}, ${item.sender_id})" class="dropdown-item border-bottom text-decoration-none py-2 d-block text-dark">
+                                    <div class="d-flex align-items-center px-2">
+                                        <div class="flex-shrink-0 me-3">
+                                            <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center font-weight-bold" style="width: 35px; height: 35px; font-size: 12px;">
+                                                ${item.sender_name.substring(0, 2).toUpperCase()}
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <div class="fw-bold text-truncate small mb-0">${item.sender_name}</div>
+                                            <div class="text-muted text-truncate x-small" style="font-size: 0.8rem; max-width: 200px;">${item.body}</div>
+                                            <div class="text-secondary x-small mt-1" style="font-size: 0.7rem;"><i class="bi bi-clock me-1"></i>${item.time}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                    } else {
+                        listHtml = `<div class="p-3 text-center text-muted small">Your tray is all caught up!</div>`;
+                    }
+
+                    targetElements.forEach(target => {
+                        target.innerHTML = listHtml;
+                    });
+                })
+                .catch(error => {
+                    console.error("Pipeline Sync Error: ", error);
+                });
+            }
+
+            // Start tracking across all admin pages immediately on page generation load
+            document.addEventListener("DOMContentLoaded", function() {
+                checkGlobalChatNotifications();
+                setInterval(checkGlobalChatNotifications, 4000);
+            });
+
+            // 🌟 Action Handler: Marks messages as read before moving windows
+            function clearNotificationRoom(conversationId, senderId) {
+                fetch("/ajax-chat/mark-as-read", {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    body: JSON.stringify({ conversation_id: conversationId })
+                })
+                .then(() => {
+                    window.location.href = `/chat?user_id=${senderId}`;
+                })
+                .catch(() => {
+                    window.location.href = `/chat?user_id=${senderId}`;
+                });
+            }
+            </script>
+
 	</body>
 	<!--end::Body-->
 </html>

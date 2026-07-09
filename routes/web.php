@@ -71,13 +71,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::post('/switch-branch', [BranchSessionsController::class, 'switch'])->name('branch.switch');
 
+
+    });
+
 		// 🌟 Add this line to map the primary chat dashboard URL path
 		Route::get('/chat', [AjaxChatController::class, 'showChat'])->name('chat.index');
 		Route::post('/ajax-chat/send', [AjaxChatController::class, 'sendMessage'])->name('ajax.chat.send');
 		Route::get('/ajax-chat/fetch-new', [AjaxChatController::class, 'fetchNewMessages'])->name('ajax.chat.fetch');
+        Route::get('/ajax-chat/notifications', [AjaxChatController::class, 'fetchUnreadNotifications'])->name('ajax.chat.notifications');
+        Route::post('/ajax-chat/mark-as-read', [AjaxChatController::class, 'markAsRead'])->name('ajax.chat.markAsRead');
 
-
-    });
 
 });
 

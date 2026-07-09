@@ -289,6 +289,8 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error("Error polling messages:", error));
         }, 2000);
     }
+
+
 });
 </script>
 @endsection
