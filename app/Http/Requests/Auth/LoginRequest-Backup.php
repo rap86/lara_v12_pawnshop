@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
@@ -46,6 +47,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
+                // 'username' => trans('auth.failed'),
                 'username' => 'These credentials do not match our records.',
             ]);
         }
@@ -66,26 +68,7 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        // 4. Clear Rate Limiter restrictions now that credentials and status are perfect
         RateLimiter::clear($this->throttleKey());
-
-        // 5. Intercept layout for your .env testing flags
-        $twoFaTempStatus = env('TWOFA_TEMP_STATUS', 'inactive');
-
-        // 5. Intercept layout for your .env testing flags
-        $twoFaTempStatus = env('TWOFA_TEMP_STATUS', 'inactive');
-
-        if ($twoFaTempStatus === 'active') {
-            // Keep track of who is logging in
-            session(['pending_2fa_user' => $user->id]);
-
-            // DO NOT use Auth::logout() here yet if it breaks your session layout.
-            // Instead, tell Laravel to drop everything and force-route the browser window.
-
-            abort(redirect('/settings/input_code'));
-        }
-
-        // If 'inactive', execution terminates normally here and Breeze logs them into the default dashboard.
     }
 
     /**
@@ -104,7 +87,8 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'username' => "Too many login attempts. Please try again in {$seconds} seconds.",
+                // Changed from trans() to a dynamic PHP double-quoted string
+                'username' => "Too many login attempts. Please try again in {$seconds} seconds.",
         ]);
     }
 

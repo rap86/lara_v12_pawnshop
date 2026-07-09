@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     {
         // Create an Admin account
         User::create([
-            'name' => 'Admin User',
+            'name' => 'I am the admin',
             'username' => 'ronaldo',
-            'email' => 'admin@example.com',
+            'email' => 'admin@thispawnshop.com',
             'role' => 'admin',
             'password' => Hash::make('panuelos'), // Securely hashes the password
             'status' => 'active',
@@ -29,11 +29,22 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'I am the clerk',
             'username' => 'clerk',
-            'email' => 'clerk@example.com',
+            'email' => 'clerk@thispawnshop.com',
             'role' => 'clerk',
             'password' => Hash::make('iamtheclerk'),
             'status' => 'active',
-            'branch_id' => 2
+            'branch_id' => 1
+        ]);
+
+         // Create a Standard/Clerk account
+        User::create([
+            'name' => 'I am the admin',
+            'username' => 'admin',
+            'email' => 'admin@thispawnshop.com',
+            'role' => 'admin',
+            'password' => Hash::make('iamtheadmin'),
+            'status' => 'active',
+            'branch_id' => 1
         ]);
     }
 }

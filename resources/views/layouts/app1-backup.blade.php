@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 	<!--begin::Head-->
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>AdminLTE | Dashboard v2</title>
+        <title>{{ config('app.name', 'Pawnshop') }}</title>
 		<!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
 		<style>
             /* 1. Automatically recalculates and layers cascading stacked backdrops correctly */
@@ -42,16 +42,14 @@
 			})();
 		</script>
 		<!--end::Theme Init-->
-
 		<!--begin::Accessibility Meta Tags-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 		<meta name="color-scheme" content="light dark" />
 		<meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
 		<!--end::Accessibility Meta Tags-->
-
 		<!--begin::Primary Meta Tags-->
-		<meta name="title" content="AdminLTE | Dashboard v2" />
+		<meta name="title" content="AdminLTE | Dashboard v3" />
 		<meta name="author" content="ColorlibHQ" />
 		<meta name="description" content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
 		<meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
@@ -60,28 +58,19 @@
 		<!--begin::Accessibility Features-->
 		<!-- Skip links will be dynamically added by accessibility.js -->
 		<meta name="supported-color-schemes" content="light dark" />
-		<link rel="preload" href="{{ asset('adminlte/css/adminlte.css') }}" as="style" />
+
+		<link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap-icons.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.css') }}">
+
 		<!--end::Accessibility Features-->
 
 		<!--begin::Fonts-->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" media="print" onload="this.media = 'all'"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" media="print" onload="this.media = 'all'" />
 		<!--end::Fonts-->
-
 		<!--begin::Third Party Plugin(OverlayScrollbars)-->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css" crossorigin="anonymous" />
 		<!--end::Third Party Plugin(OverlayScrollbars)-->
 
-		<!--begin::Third Party Plugin(Bootstrap Icons)-->
-		<link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap-icons.min.css') }}">
-		<!--end::Third Party Plugin(Bootstrap Icons)-->
-
-		<!--begin::Required Plugin(AdminLTE)-->
-		<link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.css') }}">
-		<!--end::Required Plugin(AdminLTE)-->
-
-		<!-- apexcharts -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
-	</head>
 	<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 		<!--begin::App Wrapper-->
 		<div class="app-wrapper">
@@ -104,7 +93,7 @@
                                 </span>
                             </a>
 						</li>
-						<li class="nav-item d-none d-md-block">
+                        <li class="nav-item d-none d-md-block">
 							<a href="{{ route('dashboards.index') }}" class="btn btn-secondary shadow-sm nav-link border" alt="Dashboard">
                                 <span class="d-inline-block position-relative">
                                     <i class="bi bi-grid-1x2-fill"></i> Dashboard
@@ -149,46 +138,6 @@
 									<!--end::Message-->
 								</a>
 								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="{{ asset('adminlte/assets/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> John Pierce <span class="float-end fs-7 text-secondary">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">I got your message bro</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<!--begin::Message-->
-									<div class="d-flex">
-										<div class="flex-shrink-0">
-											<img src="{{ asset('adminlte/assets/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
-										</div>
-										<div class="flex-grow-1">
-											<h3 class="dropdown-item-title"> Nora Silvester <span class="float-end fs-7 text-warning">
-													<i class="bi bi-star-fill"></i>
-												</span>
-											</h3>
-											<p class="fs-7">The subject goes here</p>
-											<p class="fs-7 text-secondary">
-												<i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-											</p>
-										</div>
-									</div>
-									<!--end::Message-->
-								</a>
-								<div class="dropdown-divider"></div>
 								<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
 							</div>
 						</li>
@@ -204,14 +153,6 @@
 								<div class="dropdown-divider"></div>
 								<a href="#" class="dropdown-item">
 									<i class="bi bi-envelope me-2"></i> 4 new messages <span class="float-end text-secondary fs-7">3 mins</span>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<i class="bi bi-people-fill me-2"></i> 8 friend requests <span class="float-end text-secondary fs-7">12 hours</span>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item">
-									<i class="bi bi-file-earmark-fill me-2"></i> 3 new reports <span class="float-end text-secondary fs-7">2 days</span>
 								</a>
 								<div class="dropdown-divider"></div>
 								<a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
@@ -268,7 +209,8 @@
 								<!--begin::User Image-->
 								<li class="user-header text-bg-primary">
 									<img src="{{ asset('adminlte/assets/img/user2-160x160.jpg') }}" class="rounded-circle shadow" alt="User Image" />
-									<p> Alexander Pierce - Web Developer <small>Member since Nov. 2023</small>
+
+                                    <p> Alexander Pierce - Web Developer <small>Member since Nov. 2023</small>
 									</p>
 								</li>
 								<!--end::User Image-->
@@ -292,7 +234,7 @@
 								<!--begin::Menu Footer-->
 								<li class="user-footer">
 									<a href="#" class="btn btn-outline-secondary">Profile</a>
-									<form method="POST" action="{{ route('logout') }}" class=" float-end">
+                                    <form method="POST" action="{{ route('logout') }}" class=" float-end">
                                         @csrf
 
                                         <a class="btn btn-outline-danger" href="route('logout')"
@@ -301,6 +243,7 @@
                                             {{ __('Sign out') }}
                                         </a>
                                     </form>
+
 								</li>
 								<!--end::Menu Footer-->
 							</ul>
@@ -322,7 +265,9 @@
 						<img src="{{ asset('adminlte/assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
 						<!--end::Brand Image-->
 						<!--begin::Brand Text-->
-						<span class="brand-text fw-light">AdminLTE 4</span>
+						<span class="brand-text fw-light">AdminLTE 4
+                            {{ auth()->user()->role }}
+                        </span>
 						<!--end::Brand Text-->
 					</a>
 					<!--end::Brand Link-->
@@ -331,8 +276,9 @@
 				<!--begin::Sidebar Wrapper-->
 				<div class="sidebar-wrapper">
 					<nav class="mt-2" aria-label="Main navigation">
+						<!--begin::Sidebar Menu-->
 
-						<div class="px-3 py-2">
+                        <div class="px-3 py-2">
                             <form id="branch-switch-form" action="{{ route('branch.switch') }}" method="POST">
                                 @csrf
                                 <select name="branch_id" class="form-select bg-dark text-white border-secondary" onchange="document.getElementById('branch-switch-form').submit();">
@@ -349,42 +295,35 @@
                             </form>
                         </div>
 
-						<!--begin::Sidebar Menu-->
 						<ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
-							<li class="nav-item">
+                            <li class="nav-item">
 								<a href="{{ route('customers.index') }}" class="nav-link">
 									<i class="nav-icon bi bi-people"></i>
 									<p>Customers</p>
 								</a>
 							</li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-box-seam-fill"></i>
-                                    <p> Admin <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
+								<a href="#" class="nav-link">
+									<i class="nav-icon bi bi-box-seam-fill"></i>
+									<p> Admin <i class="nav-arrow bi bi-chevron-right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="{{ route('users.index') }}" class="nav-link">
+											<i class="nav-icon bi bi-people"></i>
+											<p>Users</p>
+										</a>
+									</li>
                                     <li class="nav-item">
-                                        <a href="{{ route('users.index') }}" class="nav-link">
-                                            <i class="nav-icon bi bi-people"></i>
-                                            <p>Users</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('branches.index') }}" class="nav-link">
-                                            <i class="nav-icon bi bi-house"></i>
-                                            <p>Branches</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('settings.index') }}" class="nav-link">
-                                            <i class="nav-icon bi bi-gear"></i>
-                                            <p>Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-							<li class="nav-item menu-open">
+										<a href="{{ route('branches.index') }}" class="nav-link">
+											<i class="nav-icon bi bi-house"></i>
+											<p>Branches</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+                            <li class="nav-item menu-open">
 								<a href="#" class="nav-link active">
 									<i class="nav-icon bi bi-speedometer"></i>
 									<p> Dashboard <i class="nav-arrow bi bi-chevron-right"></i>
@@ -395,45 +334,6 @@
 										<a href="./index.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
 											<p>Dashboard v1</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./index2.html" class="nav-link active">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Dashboard v2</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./index3.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Dashboard v3</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="./generate/theme.html" class="nav-link">
-									<i class="nav-icon bi bi-palette"></i>
-									<p>Theme Generate</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-box-seam-fill"></i>
-									<p> Widgets <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./widgets/small-box.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Small Box</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./widgets/info-box.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>info Box</p>
 										</a>
 									</li>
 								</ul>
@@ -458,389 +358,61 @@
 											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/fixed-header.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Fixed Header</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/fixed-footer.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Fixed Footer</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/fixed-complete.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Fixed Complete</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/layout-custom-area.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Layout <small>+ Custom Area </small>
-											</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/sidebar-mini.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Sidebar Mini</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/collapsed-sidebar.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Sidebar Mini <small>+ Collapsed</small>
-											</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/collapsed-sidebar-without-hover.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Sidebar Mini <small>+ Collapsed + No Hover</small>
-											</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/logo-switch.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Sidebar Mini <small>+ Logo Switch</small>
-											</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="./layout/layout-rtl.html" class="nav-link">
+                                    <li class="nav-item">
+										<a href="./layout/fixed-sidebar.html" class="nav-link">
 											<i class="nav-icon bi bi-circle"></i>
-											<p>Layout RTL</p>
+											<p>Fixed Sidebar</p>
 										</a>
 									</li>
 								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-tree-fill"></i>
-									<p> UI Elements <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./UI/general.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>General</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./UI/icons.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Icons</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./UI/timeline.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Timeline</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-envelope"></i>
-									<p> Mailbox <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./mailbox/inbox.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Inbox</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./mailbox/read.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Read Message</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./mailbox/compose.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Compose</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-pencil-square"></i>
-									<p> Forms <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./forms/elements.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Elements</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./forms/layout.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Layout</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./forms/validation.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Validation</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./forms/wizard.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Wizard</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-table"></i>
-									<p> Tables <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./tables/simple.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Simple Tables</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./tables/data.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Data Tables</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-header">PAGES</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-file-earmark-text"></i>
-									<p> Pages <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="./pages/profile.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Profile</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/settings.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Settings</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/invoice.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Invoice</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/calendar.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Calendar</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/kanban.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Kanban</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/chat.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Chat</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/file-manager.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>File Manager</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/projects.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Projects</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/pricing.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Pricing</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="./pages/faq.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>FAQ</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p> Error <i class="nav-arrow bi bi-chevron-right"></i>
-											</p>
-										</a>
-										<ul class="nav nav-treeview">
-											<li class="nav-item">
-												<a href="./pages/404.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>404</p>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="./pages/500.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>500</p>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="./pages/maintenance.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>Maintenance</p>
-												</a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-header">EXAMPLES</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-box-arrow-in-right"></i>
-									<p> Auth <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="nav-icon bi bi-box-arrow-in-right"></i>
-											<p> Version 1 <i class="nav-arrow bi bi-chevron-right"></i>
-											</p>
-										</a>
-										<ul class="nav nav-treeview">
-											<li class="nav-item">
-												<a href="./examples/login.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>Login</p>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="./examples/register.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>Register</p>
-												</a>
-											</li>
-										</ul>
-									</li>
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="nav-icon bi bi-box-arrow-in-right"></i>
-											<p> Version 2 <i class="nav-arrow bi bi-chevron-right"></i>
-											</p>
-										</a>
-										<ul class="nav nav-treeview">
-											<li class="nav-item">
-												<a href="./examples/login-v2.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>Login</p>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="./examples/register-v2.html" class="nav-link">
-													<i class="nav-icon bi bi-circle"></i>
-													<p>Register</p>
-												</a>
-											</li>
-										</ul>
-									</li>
-									<li class="nav-item">
-										<a href="./examples/lockscreen.html" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Lockscreen</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-header">MULTI LEVEL EXAMPLE</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-circle-fill"></i>
-									<p>Level 1</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-circle-fill"></i>
-									<p> Level 1 <i class="nav-arrow bi bi-chevron-right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Level 2</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p> Level 2 <i class="nav-arrow bi bi-chevron-right"></i>
-											</p>
-										</a>
-										<ul class="nav nav-treeview">
-											<li class="nav-item">
-												<a href="#" class="nav-link">
-													<i class="nav-icon bi bi-record-circle-fill"></i>
-													<p>Level 3</p>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="#" class="nav-link">
-													<i class="nav-icon bi bi-record-circle-fill"></i>
-													<p>Level 3</p>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="#" class="nav-link">
-													<i class="nav-icon bi bi-record-circle-fill"></i>
-													<p>Level 3</p>
-												</a>
-											</li>
-										</ul>
-									</li>
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="nav-icon bi bi-circle"></i>
-											<p>Level 2</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="nav-icon bi bi-circle-fill"></i>
-									<p>Level 1</p>
-								</a>
 							</li>
 							<li class="nav-header">LABELS</li>
 							<li class="nav-item">
@@ -877,46 +449,44 @@
 			<main class="app-main">
 				<!--begin::App Content Header-->
 				<div class="app-content-header">
-
 					<!--begin::Container-->
 					<div class="container-fluid">
 						<!--begin::Row-->
 						<div class="row">
 							<div class="col-sm-6">
-								<form action="{{ route('customers.index') }}" method="GET" class="input-group">
-									<span class="input-group-text"><i class="bi bi-search"></i></span>
-									<input
-										type="search"
-										name="search"
-										class="form-control fs-4"
-										placeholder="Search by name..."
-										value="{{ request('search') }}"
-										onsearch="this.form.submit()"
-									/>
-								</form>
-							</div>
+                                <div class="">
+                                    <form action="{{ route('customers.index') }}" method="GET" class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                        <input
+                                            type="search"
+                                            name="search"
+                                            class="form-control fs-4"
+                                            placeholder="Search by name..."
+                                            value="{{ request('search') }}"
+                                            onsearch="this.form.submit()"
+                                        />
+                                    </form>
+                                </div>
+                            </div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-end">
 									<li class="breadcrumb-item">
 										<a href="#">Home</a>
 									</li>
-									<li class="breadcrumb-item active" aria-current="page">Dashboard v2</li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard v3</li>
 								</ol>
 							</div>
 						</div>
 						<!--end::Row-->
 					</div>
 					<!--end::Container-->
-
 				</div>
 				<div class="app-content">
 					<!--begin::Container-->
 					<div class="container-fluid">
-					<!--Here Body Start-->
 
-						@yield('content')
+                        @yield('content')
 
-					<!--Here Body End-->
 					</div>
 					<!--end::Container-->
 				</div>
@@ -929,32 +499,33 @@
 				<div class="float-end d-none d-sm-inline">Anything you want</div>
 				<!--end::To the end-->
 				<!--begin::Copyright-->
-				<strong> Copyright &copy; 2014-2026&nbsp; <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>. </strong> All rights reserved.
+				<strong> Copyright &copy; 2014-2026&nbsp; <a href="#" class="text-decoration-none">AdminLTE.io</a>. </strong> All rights reserved.
 				<!--end::Copyright-->
 			</footer>
 			<!--end::Footer-->
 		</div>
 		<!--end::App Wrapper-->
 
-		<!--begin::Script-->
+        <!--begin::Script-->
 		<!--begin::Third Party Plugin(OverlayScrollbars)-->
 		<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
 		<!--end::Third Party Plugin(OverlayScrollbars)-->
 
-		<!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+        <!--begin::Required Plugin(popperjs for Bootstrap 5)-->
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 		<!--end::Required Plugin(popperjs for Bootstrap 5)-->
 
-		<!--begin::Required Plugin(Bootstrap 5)-->
+        <!--begin::Required Plugin(Bootstrap 5)-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 		<!--end::Required Plugin(Bootstrap 5)-->
 
-		<!--begin::Required Plugin(AdminLTE)-->
+
         <script src="{{ asset('adminlte/js/jquery.min.js') }}"></script>
         <script src="{{ asset('adminlte/js/sweetalert2.all.min.js') }}"></script>
-		<script src="{{ asset('adminlte/js/adminlte.js') }}"></script>
-		<!--end::Required Plugin(AdminLTE)-->
 
+        <!--begin::Required Plugin(AdminLTE)-->
+        <script src="{{ asset('adminlte/js/adminlte.js') }}"></script>
+		<!--end::Required Plugin(AdminLTE)-->
 
 		<!--begin::OverlayScrollbars Configure-->
 		<script>
@@ -980,6 +551,7 @@
 			});
 		</script>
 		<!--end::OverlayScrollbars Configure-->
+
 		<!--begin::Color Mode Toggle (#6010)-->
 		<script>
 			(() => {
@@ -1037,7 +609,13 @@
 		</script>
 		<!--end::Color Mode Toggle-->
 
-		<script>
+		<!-- OPTIONAL SCRIPTS -->
+		<!-- apexcharts -->
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.4.0/dist/js/tabulator.min.js" crossorigin="anonymous"></script>
+
+        <script>
             $(document).ready(function () {
 
                 $('button.btnClickMe').click(function() {
@@ -1084,9 +662,10 @@
 
             });
         </script>
+
         @include('elements.bs_modal_confirmation_record_add')
         @include('elements.bs_modal_confirmation_record_update')
         @include('elements.bs_modal_confirmation_record_delete')
-	</body>
+    </body>
 	<!--end::Body-->
 </html>

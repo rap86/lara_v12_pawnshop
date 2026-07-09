@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="role" class="form-label small fw-semibold text-dark">Status</label>
+                        <label for="status" class="form-label small fw-semibold text-dark">Status</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-shield-lock"></i></span>
                             <select class="form-select" id="status" name="status" required>

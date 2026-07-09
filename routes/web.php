@@ -7,6 +7,7 @@ use App\Http\Controllers\PrintsController;
 use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\BranchSessionsController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Guest / Public Access
@@ -17,50 +18,62 @@ Route::get('/', function () {
 // 2. Protected Routes (Everything requiring a logged-in user)
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Redirection / Landing Pages
-    Route::get('/hereafterlogin', function () {
-        return view('hereafterlogin');
-    })->name('hereafterlogin');
+    // =========================================================================
+    // OPEN FOR 2FA INPUT (Must not have 'auth.2fa' to prevent infinite loops)
+    // =========================================================================
+    Route::get('/settings/input_code', [SettingsController::class, 'show'])->name('settings.show');
+    Route::post('/settings/input_validation', [SettingsController::class, 'input_validation'])->name('settings.input_validation');
 
     Route::get('/login_page', function () {
         return view('login_page');
     })->name('login_page');
 
-    // Users Management
-    Route::get('/users', [UsersController::class, 'index'])->name('users.index');
-    Route::post('/users', [UsersController::class, 'store'])->name('users.store');
-    Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
-    Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
-    // Brahch Management
-    Route::get('/branches', [BranchesController::class, 'index'])->name('branches.index');
-    Route::post('/branches', [BranchesController::class, 'store'])->name('branches.store');
-    Route::put('/branches/{id}', [BranchesController::class, 'update'])->name('branches.update');
-    Route::delete('/branches/{id}', [BranchesController::class, 'destroy'])->name('branches.destroy');
+    // =========================================================================
+    // SECURED INTERNAL PAWNSHOP PAGES (Protected by the 'auth.2fa' middleware guard)
+    // =========================================================================
+    Route::middleware(['auth.2fa'])->group(function () {
 
+        // Redirection / Landing Pages
+        Route::get('/hereafterlogin', function () {
+            return view('hereafterlogin');
+        })->name('hereafterlogin');
 
-    // Customers Management (Moved inside auth for safety!)
-    Route::resource('customers', CustomersController::class);
+        // Users Management
+        Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+        Route::post('/users', [UsersController::class, 'store'])->name('users.store');
+        Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
+        Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
+        // Branch Management
+        Route::get('/branches', [BranchesController::class, 'index'])->name('branches.index');
+        Route::post('/branches', [BranchesController::class, 'store'])->name('branches.store');
+        Route::put('/branches/{id}', [BranchesController::class, 'update'])->name('branches.update');
+        Route::delete('/branches/{id}', [BranchesController::class, 'destroy'])->name('branches.destroy');
 
-    // Protect this route with auth middleware so regular guests can't extract your database info!
-    Route::get('/database/download', [BackupsController::class, 'download_database'])
-        ->middleware('auth')
-        ->name('database.download');
+        // Settings Management
+        Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 
-    Route::get('/print_customer_info', [PrintsController::class, 'print_customer_info'])->name('prints.print_customer_info');
+        Route::post('/settings', [SettingsController::class, 'store'])->name('settings.store');
+        Route::put('/settings/{id}', [SettingsController::class, 'update'])->name('settings.update');
+        Route::delete('/settings/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
 
-    Route::get('/dashboard', [DashboardsController::class, 'index'])->name('dashboards.index');
+        // Customers Management
+        Route::resource('customers', CustomersController::class);
 
+        // Database Backup Route
+        Route::get('/database/download', [BackupsController::class, 'download_database'])->name('database.download');
 
+        Route::get('/print_customer_info', [PrintsController::class, 'print_customer_info'])->name('prints.print_customer_info');
 
-    Route::post('/switch-branch', [BranchSessionsController::class, 'switch'])->name('branch.switch');
+        Route::get('/dashboard', [DashboardsController::class, 'index'])->name('dashboards.index');
+
+        Route::post('/switch-branch', [BranchSessionsController::class, 'switch'])->name('branch.switch');
+    });
+
 });
 
-
-
 // 3. System Fallback & Auth files
-// 404 is a Global Fallback, Not a Protected Route
 Route::fallback(function () {
     return view('errors.custom-404');
 });

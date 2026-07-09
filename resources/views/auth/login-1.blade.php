@@ -36,12 +36,12 @@
 
                 <div class="card-header text-center border-0 pt-4 pb-1 bg-transparent">
                     <a href="#" class="text-decoration-none">
-                        <h1 class="mb-0 text-dark fw-bold" style="letter-spacing: -0.5px;">Login<span class="text-secondary fw-light">Moto</span></h1>
+                        <h2 class="mb-0 text-dark fw-bold" style="letter-spacing: -0.5px;">Login<span class="text-secondary fw-light">Moto</span></h2>
                     </a>
                 </div>
 
                 <div class="card-body login-card-body px-4 pb-4">
-                    <p class="login-box-msg text-muted small mb-1">Sign in to start your session</p>
+                    <p class="login-box-msg text-muted small mb-4">Sign in to start your session</p>
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

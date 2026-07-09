@@ -26,23 +26,18 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'username' => fake()->unique()->userName(),
+            'name'              => fake()->name(),
+            'email'             => fake()->unique()->safeEmail(),
+            'username'          => fake()->unique()->userName(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password'          => static::$password ??= Hash::make('password'),
+            'role'              => fake()->randomElement(['admin', 'clerk']),
+            'status'            => fake()->randomElement(['active', 'inactive']),
+            'is_floating'       => false,
+            'remember_token'    => Str::random(10),
 
-            // Randomly assigns either 'admin' or 'clerk'
-            'role' => fake()->randomElement(['admin', 'clerk']),
-
-            // Randomly assigns either 'active' or 'inactive'
-            'status' => fake()->randomElement(['active', 'inactive']),
-
-            'is_floating' => false,
-            'remember_token' => Str::random(10),
-
-            // Dynamically attaches an existing branch ID or spins one up
-            'branch_id' => fn () => Branch::inRandomOrder()->first()?->id ?? Branch::factory(),
+            // OPTIMIZATION: If branches table is empty, fall back safely to an integer ID or handle gracefully
+            'branch_id'         => fn () => Branch::inRandomOrder()->first()?->id ?? 1,
         ];
     }
 
