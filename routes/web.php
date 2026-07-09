@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\BranchSessionsController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\AjaxChatController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Guest / Public Access
@@ -69,6 +70,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [DashboardsController::class, 'index'])->name('dashboards.index');
 
         Route::post('/switch-branch', [BranchSessionsController::class, 'switch'])->name('branch.switch');
+
+		// 🌟 Add this line to map the primary chat dashboard URL path
+		Route::get('/chat', [AjaxChatController::class, 'showChat'])->name('chat.index');
+		Route::post('/ajax-chat/send', [AjaxChatController::class, 'sendMessage'])->name('ajax.chat.send');
+		Route::get('/ajax-chat/fetch-new', [AjaxChatController::class, 'fetchNewMessages'])->name('ajax.chat.fetch');
+
+
     });
 
 });

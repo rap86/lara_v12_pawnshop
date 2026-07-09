@@ -358,6 +358,12 @@
 								</a>
 							</li>
                             <li class="nav-item">
+								<a href="{{ route('chat.index') }}" class="nav-link">
+									<i class="nav-icon bi bi-people"></i>
+									<p>Chat</p>
+								</a>
+							</li>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon bi bi-box-seam-fill"></i>
                                     <p> Admin <i class="nav-arrow bi bi-chevron-right"></i>
