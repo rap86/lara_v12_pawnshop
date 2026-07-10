@@ -869,11 +869,9 @@
 				<div class="app-content">
 					<!--begin::Container-->
 					<div class="container-fluid">
-					<!--Here Body Start-->
-
+                        <!--Here Body Start-->
 						@yield('content')
-
-					<!--Here Body End-->
+					    <!--Here Body End-->
 					</div>
 					<!--end::Container-->
 				</div>

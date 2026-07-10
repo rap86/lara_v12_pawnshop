@@ -2,17 +2,17 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-success text-white py-3">
-                <h5 class="modal-title fw-bold" id="confirmationModalLabel">
+                <h4 class="modal-title fw-bold" id="confirmationModalLabel">
                     <i class="bi bi-question-circle me-2"></i>Confirm Update Record
-                </h5>
+                </h4>
                 <button type="button" id="confirmSubmitBtnXUpdate" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <p class="mb-0 text-dark fw-medium">Are you sure you want to register and save this customer's details to the registry?</p>
+                <p class="mb-0 text-dark fs-5">Are you sure you want to save your changes?</p>
             </div>
             <div class="modal-footer bg-light border-top-0">
-                <button type="button" id="confirmSubmitBtnCancelUpdate" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="confirmSubmitBtnUpdate" class="btn btn-success px-4 shadow-sm">Yes, Update Records</button>
+                <button type="button" id="confirmSubmitBtnCancelUpdate" class="btn btn-outline-secondary px-4 btn-lg" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmSubmitBtnUpdate" class="btn btn-success px-4 shadow-sm btn-lg">Yes, Update</button>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
         activeForm = null;
 
         confirmSubmitBtn.disabled = false;
-        confirmSubmitBtn.innerHTML = `Yes, Update Records`;
+        confirmSubmitBtn.innerHTML = `Yes, Update`;
 
         confirmCancelBtn.disabled = false;
         confirmCancelBtn.setAttribute('data-bs-dismiss', 'modal');

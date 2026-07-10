@@ -98,6 +98,7 @@
                                                     data-name="{{ $user->name }}">
                                                 <i class="bi bi-trash3"></i> Delete
                                             </button>
+                                            <a href="{{ route('users.edit',  $user->id) }}" class="btn btn-warning btn-lg">Edit</a>
                                         </div>
                                     </td>
                                 </tr>

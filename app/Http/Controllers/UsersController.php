@@ -90,6 +90,18 @@ class UsersController extends Controller
         return redirect()->route('users.index')->with('flash_success', 'System user account updated successfully.');
     }
 
+    public function edit($id)
+    {
+        $branches = Branch::all();
+        $user = User::findOrFail($id);
+        return view('users.edit', [
+            'user' => $user,
+            'branches' => $branches
+        ]);
+
+    }
+
+
     /**
      * Remove the specified user record.
      */
