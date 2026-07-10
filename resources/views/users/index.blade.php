@@ -79,7 +79,7 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button type="button"
-                                                    class="btn btn-outline-success"
+                                                    class="btn btn-outline-success btn-sm"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#editUserModal"
                                                     data-id="{{ $user->id }}"
@@ -91,14 +91,16 @@
                                                     data-branch_id="{{ $user->branch_id }}">
                                                 <i class="bi bi-pencil-square"></i> Update
                                             </button>
-                                            <button type="button" class="btn btn-outline-danger"
+                                            <button type="button" class="btn btn-outline-danger btn-sm"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#deleteUserModal"
                                                     data-id="{{ $user->id }}"
                                                     data-name="{{ $user->name }}">
                                                 <i class="bi bi-trash3"></i> Delete
                                             </button>
-                                            <a href="{{ route('users.edit',  $user->id) }}" class="btn btn-warning btn-lg">Edit</a>
+                                            <a href="{{ route('users.edit',  $user->id) }}" class="btn btn-outline-secondary btn-sm">
+                                                <i class="bi bi-pencil-square me-2"></i> Edit
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

@@ -172,7 +172,7 @@
 
                 <div class="modal-footer bg-light border-top-0 px-4 py-3">
                     <button type="button" class="btn btn-outline-secondary btn-lg px-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success text-white btn-lg px-4 shadow-sm">Update Account</button>
+                    <button type="submit" class="btn btn-success text-white btn-lg px-4 shadow-sm">Yes, Update</button>
                 </div>
             </form>
         </div>

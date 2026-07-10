@@ -52,8 +52,8 @@
                     <button type="button" class="btn btn-success d-flex align-items-center justify-content-center py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
                         <i class="bi bi-pencil-square me-2"></i> Update Profile
                     </button>
-                    <a href="#" class="btn btn-outline-danger d-flex align-items-center justify-content-center py-2">
-                        <i class="bi bi-trash me-2"></i> Delete Profile
+                    <a href="{{ route('customers.edit', $customers->id) }}" class="btn btn-outline-danger d-flex align-items-center justify-content-center py-2">
+                        <i class="bi bi-trash me-2"></i> Edit Profile
                     </a>
                 </div>
             </div>
@@ -102,5 +102,6 @@
         </div>
     </div>
 </div>
+
 @include('elements.bs_modal_info_update_customer')
 @endsection

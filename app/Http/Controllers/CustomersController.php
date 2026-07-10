@@ -94,8 +94,12 @@ class CustomersController extends Controller
      */
     public function edit(string $id)
     {
-        return view('customers.index');
+        $customer = Customer::findOrFail($id);
+        return view('customers.edit', [
+            'customer' => $customer
+        ]);
     }
+
 
     /**
      * Update the specified resource in storage.
