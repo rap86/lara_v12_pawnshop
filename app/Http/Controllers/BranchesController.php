@@ -12,7 +12,7 @@ class BranchesController extends Controller
     public function index()
     {
         // Fetch branches in chunks of 15 per page to keep the application fast
-        $branches = Branch::latest('created_at')->paginate(15);
+        $branches = Branch::latest('created_at')->paginate(20);
 
         // Return the view directory passing the branches payload
         return view('branches.index', compact('branches'));

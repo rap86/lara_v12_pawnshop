@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function index()
     {
         // Fetch users in chunks of 15 per page to keep the application fast
-        $users = User::with('branch')->latest('created_at')->paginate(15);
+        $users = User::with('branch')->latest('created_at')->paginate(20);
         $branches = Branch::all();
 
         // Return the view directory passing the users payload
@@ -101,6 +101,11 @@ class UsersController extends Controller
 
     }
 
+    public function create()
+    {
+        $branches = Branch::all();
+        return view('users.create')->with('branches', $branches);
+    }
 
     /**
      * Remove the specified user record.

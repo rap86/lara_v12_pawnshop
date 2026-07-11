@@ -9,11 +9,10 @@
                     <div>
                         <h4 class="fw-bold mb-0 text-dark">System Users</h4>
                     </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                        <i class="bi bi-person-plus-fill me-2"></i>Add System User
-                    </button>
+                    <a href="{{ route('users.create') }}" class="btn btn-primary">
+                        <i class="bi bi-person-plus me-2"></i> Add Sytem User
+                    </a>
                 </div>
-
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -22,7 +21,6 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Username</th>
-                                <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Branch</th>
@@ -44,7 +42,6 @@
                                         </div>
                                     </td>
                                     <td>{{ $user->username }}</td>
-                                    <td><span class="text-dark font-monospace">{{ $user->email }}</span></td>
                                     <td>
                                         @switch(strtolower($user->role))
                                             @case('admin')
@@ -77,31 +74,16 @@
                                     </td>
                                     <td class="text-secondary">{{ $user->created_at->format('M d, Y h:i A') }}</td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <button type="button"
-                                                    class="btn btn-outline-success btn-sm"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editUserModal"
-                                                    data-id="{{ $user->id }}"
-                                                    data-name="{{ $user->name }}"
-                                                    data-username="{{ $user->username }}"
-                                                    data-email="{{ $user->email }}"
-                                                    data-role="{{ $user->role }}"
-                                                    data-status="{{ $user->status }}"
-                                                    data-branch_id="{{ $user->branch_id }}">
-                                                <i class="bi bi-pencil-square"></i> Update
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger btn-sm"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#deleteUserModal"
-                                                    data-id="{{ $user->id }}"
-                                                    data-name="{{ $user->name }}">
-                                                <i class="bi bi-trash3"></i> Delete
-                                            </button>
-                                            <a href="{{ route('users.edit',  $user->id) }}" class="btn btn-outline-secondary btn-sm">
-                                                <i class="bi bi-pencil-square me-2"></i> Edit
-                                            </a>
-                                        </div>
+                                        <button type="button" class="btn btn-outline-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal"
+                                                data-id="{{ $user->id }}"
+                                                data-name="{{ $user->name }}">
+                                            <i class="bi bi-trash3"></i> Delete
+                                        </button>
+                                        <a href="{{ route('users.edit',  $user->id) }}" class="btn btn-success">
+                                            <i class="bi bi-pencil-square me-2"></i> Edit
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -120,26 +102,13 @@
             </div>
             {{-- Custom Pagination Bar Render --}}
             @if($users->hasPages())
-                <div class="card-footer border-0 pt-4 py-3 px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="small text-muted">
-                            Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} entries
-                        </span>
-                        <div>
-                            {{ $users->links('pagination::bootstrap-5') }}
-                        </div>
-                    </div>
+                <div class="card-footer bg-light border-top border-light pt-4 py-3 px-4">
+                    {{ $users->appends(request()->query())->links() }}
                 </div>
             @endif
         </div>
     </div>
 </div>
-
-{{-- This is for user registration --}}
-@include('elements.bs_modal_info_add_user', ['branches' => $branches])
-
-{{-- This is for user info update --}}
-@include('elements.bs_modal_info_update_user', ['branches' => $branches])
 
 {{-- This is for user info delete --}}
 @include('elements.bs_modal_info_delete_user')

@@ -46,7 +46,7 @@
                 </p>
 
                 <div class="d-flex justify-content-center">
-                    <a href="{{ route('login') }}" class="btn btn-dark btn-lg px-4 py-2 fs-6 fw-medium shadow-sm border-0 rounded-3" style="background-color: #2d3238;">
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-lg px-4 py-2 fs-6 fw-medium shadow-sm border-0 rounded-3" style="background-color: #2d3238;">
                         <i class="bi bi-box-arrow-in-right me-2"></i>Access Employee Session
                     </a>
                 </div>

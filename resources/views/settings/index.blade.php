@@ -22,7 +22,7 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Details</th>
+                                <th style="width:30%;">Details</th>
                                 <th>Created</th>
                                 <th>Updated</th>
                                 <th>Action</th>
@@ -66,25 +66,24 @@
                                     </td>
                                     <td class="text-secondary">{{ $setting->updated_at->format('M d, Y h:i A') }}</td>
                                     <td>
-                                        <div class="btn-group" role="group">
+
+                                        <button type="button" class="btn btn-outline-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteSettingModal"
+                                                data-id="{{ $setting->id }}"
+                                                data-name="{{ $setting->name }}">
+                                            <i class="bi bi-trash3"></i> Delete
+                                        </button>
                                             <button type="button"
-                                                    class="btn btn-outline-success"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editSettingModal"
-                                                    data-id="{{ $setting->id }}"
-                                                    data-name="{{ $setting->name }}"
-                                                    data-status="{{ $setting->status }}"
-                                                    data-details="{{ $setting->details }}">
-                                                <i class="bi bi-pencil-square"></i> Update
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#deleteSettingModal"
-                                                    data-id="{{ $setting->id }}"
-                                                    data-name="{{ $setting->name }}">
-                                                <i class="bi bi-trash3"></i> Delete
-                                            </button>
-                                        </div>
+                                                class="btn btn-success"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editSettingModal"
+                                                data-id="{{ $setting->id }}"
+                                                data-name="{{ $setting->name }}"
+                                                data-status="{{ $setting->status }}"
+                                                data-details="{{ $setting->details }}">
+                                            <i class="bi bi-pencil-square"></i> Update
+                                        </button>
                                     </td>
                                 </tr>
                             @empty
@@ -101,18 +100,10 @@
                     </table>
                 </div>
             </div>
-
             {{-- Custom Pagination Bar Render --}}
             @if($settings->hasPages())
-                <div class="card-footer border-0 pt-4 py-3 px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="small text-muted">
-                            Showing {{ $settings->firstItem() }} to {{ $settings->lastItem() }} of {{ $settings->total() }} entries
-                        </span>
-                        <div>
-                            {{ $settings->links('pagination::bootstrap-5') }}
-                        </div>
-                    </div>
+                <div class="card-footer bg-light border-top border-light pt-4 py-3 px-4">
+                    {{ $settings->appends(request()->query())->links() }}
                 </div>
             @endif
         </div>

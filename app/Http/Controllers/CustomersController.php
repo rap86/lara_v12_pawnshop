@@ -143,12 +143,12 @@ class CustomersController extends Controller
     if (!empty($search)) {
         $customerQuery->where(function ($subQuery) use ($search) {
             $subQuery->where('first_name', 'like', "%{$search}%")
-                     ->orWhere('last_name', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%");
         });
     }
 
     $customers = $customerQuery->latest()
-        ->paginate(2)
+        ->paginate(20)
         ->withQueryString();
 
     // 2. Double check that 'search' is included here:

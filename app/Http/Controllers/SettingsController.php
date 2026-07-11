@@ -11,7 +11,7 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        $settings = Setting::latest('created_at')->paginate(15);
+        $settings = Setting::latest('created_at')->paginate(20);
         return view('settings.index')->with('settings', $settings);
     }
 

@@ -74,27 +74,26 @@
                                     </td>
                                     <td class="text-secondary">{{ $branch->created_at->format('M d, Y h:i A') }}</td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <button type="button"
-                                                    class="btn btn-outline-success"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editBranchModal"
-                                                    data-id="{{ $branch->id }}"
-                                                    data-name="{{ $branch->name }}"
-                                                    data-code="{{ $branch->code }}"
-                                                    data-location="{{ $branch->location }}"
-                                                    data-type="{{ $branch->type }}"
-                                                    data-status="{{ $branch->status }}">
-                                                <i class="bi bi-pencil-square"></i> Update
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#deleteBranchModal"
-                                                    data-id="{{ $branch->id }}"
-                                                    data-name="{{ $branch->name }}">
-                                                <i class="bi bi-trash3"></i> Delete
-                                            </button>
-                                        </div>
+
+                                        <button type="button" class="btn btn-outline-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteBranchModal"
+                                                data-id="{{ $branch->id }}"
+                                                data-name="{{ $branch->name }}">
+                                            <i class="bi bi-trash3"></i> Delete
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-success"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editBranchModal"
+                                                data-id="{{ $branch->id }}"
+                                                data-name="{{ $branch->name }}"
+                                                data-code="{{ $branch->code }}"
+                                                data-location="{{ $branch->location }}"
+                                                data-type="{{ $branch->type }}"
+                                                data-status="{{ $branch->status }}">
+                                            <i class="bi bi-pencil-square"></i> Update
+                                        </button>
                                     </td>
                                 </tr>
                             @empty
@@ -113,15 +112,8 @@
             </div>
             {{-- Custom Pagination Bar Render --}}
             @if($branches->hasPages())
-                <div class="card-footer border-0 pt-4 py-3 px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="small text-muted">
-                            Showing {{ $branches->firstItem() }} to {{ $branches->lastItem() }} of {{ $branches->total() }} entries
-                        </span>
-                        <div>
-                            {{ $branches->links('pagination::bootstrap-5') }}
-                        </div>
-                    </div>
+                <div class="card-footer bg-light border-top border-light pt-4 py-3 px-4">
+                    {{ $branches->appends(request()->query())->links() }}
                 </div>
             @endif
         </div>
