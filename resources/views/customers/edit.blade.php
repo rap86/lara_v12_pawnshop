@@ -141,8 +141,63 @@
                                 </div>
                             </div>
 
+                            <!-- Branch -->
+                            <div class="col-lg-4">
+                                <!-- Fixed typo: Changed Lifor to for -->
+                                <label for="branch_id" class="form-label fw-semibold text-dark fs-6 mb-2">Branch</label>
+                                <div class="input-group input-group-lg shadow-sm rounded-3 has-validation">
+                                    <!-- High visibility building icon for branch -->
+                                    <span class="input-group-text bg-light text-muted px-3">
+                                        <i class="bi bi-building fs-4"></i>
+                                    </span>
+
+                                    @php
+                                        $user = auth()->user();
+                                        $isClerk = ($user->role === 'clerk');
+
+                                        // Set the selected branch value:
+                                        // Checks old input first (on validation error), falls back to the database record,
+                                        // and forcefully falls back to a clerk's home branch if neither is present.
+                                        $selectedBranch = old('branch_id', $customer->branch_id ?? ($isClerk ? $user->branch_id : ''));
+                                    @endphp
+
+                                    <!--
+                                    Dynamic Name Attribute:
+                                    If clerk: name is 'branch_id_display' so the browser ignores it, and the hidden input safely sends the data.
+                                    If admin: name is 'branch_id' so the selection saves directly to the database.
+                                    -->
+                                    <select class="form-select form-select-lg fs-5 py-3 @error('branch_id') is-invalid @enderror"
+                                            id="branch_id"
+                                            name="{{ $isClerk ? 'branch_id_display' : 'branch_id' }}"
+                                            @if($isClerk) disabled style="background-color: #e9ecef; opacity: 0.8; cursor: not-allowed;" @endif
+                                            required>
+
+                                        <option value="" disabled {{ empty($selectedBranch) ? 'selected' : '' }}>Select branch</option>
+
+                                        <!-- Loop through actual branch data dynamically -->
+                                        @foreach($sidebarBranches as $branch)
+                                            <option value="{{ $branch->id }}" {{ $selectedBranch == $branch->id ? 'selected' : '' }}>
+                                                {{ $branch->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    <!-- HTML Form Rule Guardrail: Disabled selects do not submit data.
+                                        This hidden field handles underlying payload safety for clerks. -->
+                                    @if($isClerk)
+                                        <input type="hidden" name="branch_id" value="{{ $selectedBranch }}">
+                                    @endif
+
+                                    @error('branch_id')
+                                        <div class="invalid-feedback fs-6 mt-2 d-block">{{ $message }}</div>
+                                    @else
+                                        <div class="invalid-feedback fs-6 mt-2">Please select a valid branch.</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <!-- Full Address -->
-                            <div class="col-12">
+                            <div class="col-8">
                                 <label for="address" class="form-label fw-bold text-dark fs-6 mb-2">Full Address *</label>
                                 <div class="input-group input-group-lg shadow-sm rounded-3 has-validation">
                                     <span class="input-group-text bg-light text-muted px-3"><i class="bi bi-geo-alt fs-4"></i></span>
@@ -165,7 +220,7 @@
                                 <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1 me-2 rounded-2 fw-bold text-uppercase fs-6">03</span>
                                 <h4 class="fw-bold text-dark mb-0 fs-5">Background & Description</h4>
                             </div>
-                            <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-1.5 rounded-pill border border-warning border-opacity-25 fs-6 fw-bold"><i class="bi bi-shield-exclamation me-1"></i> Optional Fields</span>
+                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-1.5 rounded-pill border border-success border-opacity-25 fs-6 fw-bold"><i class="bi bi-shield-exclamation me-1"></i> Optional Fields</span>
                         </div>
 
                         <div class="row g-4">
@@ -214,7 +269,7 @@
 
                 <!-- Crisp Flat Elegant Footer with perfectly aligned, same-height buttons -->
                 <div class="card-footer bg-light border-top border-light-subtle p-4 d-flex flex-column flex-sm-row justify-content-sm-end align-items-stretch align-items-sm-center gap-3">
-                    <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary btn-lg px-4 py-3 fs-6 rounded-3 fw-bold text-nowrap text-center">
+                    <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-outline-secondary btn-lg px-4 py-3 fs-6 rounded-3 fw-bold text-nowrap text-center">
                         Discard Changes
                     </a>
                     <button type="submit" class="btn btn-success btn-lg px-4 shadow-sm rounded-3 fw-bold border-0 py-3 fs-6 text-nowrap d-flex align-items-center justify-content-center">

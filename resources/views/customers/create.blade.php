@@ -114,14 +114,14 @@
                                 <div class="input-group input-group-lg shadow-sm rounded-3 has-validation">
                                     <span class="input-group-text bg-light text-muted px-3"><i class="bi bi-phone fs-4"></i></span>
                                     <input type="text"
-                                           class="form-control form-control-lg fs-5 py-3 @error('cellphone_number') is-invalid @enderror"
-                                           id="cellphone_number"
-                                           name="cellphone_number"
-                                           value="{{ old('cellphone_number') }}"
-                                           placeholder="e.g., 0917XXXXXXX"
-                                           inputmode="numeric"
-                                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                           required>
+                                        class="form-control form-control-lg fs-5 py-3 @error('cellphone_number') is-invalid @enderror"
+                                        id="cellphone_number"
+                                        name="cellphone_number"
+                                        value="{{ old('cellphone_number') }}"
+                                        placeholder="e.g., 0917XXXXXXX"
+                                        inputmode="numeric"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                        required>
                                     <div class="valid-feedback fs-6 mt-2">Looks good!</div>
                                     @error('cellphone_number')
                                         <div class="invalid-feedback fs-6 mt-2 d-block">{{ $message }}</div>
@@ -140,8 +140,59 @@
                                 </div>
                             </div>
 
+                            <!-- Branch -->
+                            <div class="col-lg-4">
+                                <label Lifor="branch_id" class="form-label fw-semibold text-dark fs-6 mb-2">Branch</label>
+                                <div class="input-group input-group-lg shadow-sm rounded-3 has-validation">
+                                    <!-- High visibility building icon for branch -->
+                                    <span class="input-group-text bg-light text-muted px-3">
+                                        <i class="bi bi-building fs-4"></i>
+                                    </span>
+
+                                    @php
+                                        $user = auth()->user();
+                                        $isClerk = ($user->role === 'clerk');
+
+                                        // Set the default selected branch value
+                                        // If there's validation error fallback (old data), use it; if clerk, force their branch; otherwise use empty string
+                                        $selectedBranch = old('branch_id', ($isClerk ? $user->branch_id : ''));
+                                    @endphp
+
+                                    <select class="form-select form-select-lg fs-5 py-3 @error('branch_id') is-invalid @enderror"
+                                            id="branch_id"
+                                            name="branch_id_display"
+                                            @if($isClerk) disabled style="background-color: #e9ecef; opacity: 0.8; cursor: not-allowed;" @endif
+                                            required>
+
+                                        <option value="" disabled {{ empty($selectedBranch) ? 'selected' : '' }}>Select branch</option>
+
+                                        <!-- Loop through actual branch data dynamically -->
+                                        @foreach($sidebarBranches as $branch)
+                                            <option value="{{ $branch->id }}" {{ $selectedBranch == $branch->id ? 'selected' : '' }}>
+                                                {{ $branch->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    <!-- HTML Form Rule Guardrail: Disabled fields do not submit data to the controller.
+                                        If the user is a clerk, this hidden field safely passes their forced branch ID. -->
+                                    @if($isClerk)
+                                        <input type="hidden" name="branch_id" value="{{ $user->branch_id }}">
+                                    @else
+                                        <!-- Rename select name above to branch_id dynamically via standard fallback if not disabled -->
+                                        <script>document.getElementById('branch_id').setAttribute('name', 'branch_id');</script>
+                                    @endif
+
+                                    @error('branch_id')
+                                        <div class="invalid-feedback fs-6 mt-2 d-block">{{ $message }}</div>
+                                    @else
+                                        <div class="invalid-feedback fs-6 mt-2">Please select a valid branch.</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <!-- Full Address -->
-                            <div class="col-12">
+                            <div class="col-8">
                                 <label for="address" class="form-label fw-bold text-dark fs-6 mb-2">Full Address *</label>
                                 <div class="input-group input-group-lg shadow-sm rounded-3 has-validation">
                                     <span class="input-group-text bg-light text-muted px-3"><i class="bi bi-geo-alt fs-4"></i></span>
@@ -164,7 +215,7 @@
                                 <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2 py-1 me-2 rounded-2 fw-bold text-uppercase fs-6">03</span>
                                 <h4 class="fw-bold text-dark mb-0 fs-5">Background & Description</h4>
                             </div>
-                            <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-1.5 rounded-pill border border-warning border-opacity-25 fs-6 fw-bold"><i class="bi bi-shield-exclamation me-1"></i> Optional Fields</span>
+                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-1.5 rounded-pill border border-success border-opacity-25 fs-6 fw-bold"><i class="bi bi-shield-exclamation me-1"></i> Optional Fields</span>
                         </div>
 
                         <div class="row g-4">
@@ -208,7 +259,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Crisp Flat Elegant Footer with perfectly aligned, same-height buttons -->

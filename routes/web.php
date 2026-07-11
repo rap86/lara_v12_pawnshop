@@ -61,7 +61,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/settings/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
 
         // Customers Management
+
+        Route::get('/customers', [CustomersController::class, 'index'])->name('customers.index');
+        Route::post('/customers', [CustomersController::class, 'store'])->name('customers.store');
+        Route::put('/customers/{id}', [CustomersController::class, 'edit'])->name('customers.edit');
+        Route::put('/customers/{id}', [CustomersController::class, 'update'])->name('customers.update');
+        Route::delete('/customers/{id}', [CustomersController::class, 'destroy'])->name('customers.destroy');
+
+        Route::get('/customers/search', [CustomersController::class, 'search'])->name('customers.search');
         Route::resource('customers', CustomersController::class);
+
 
         // Database Backup Route
         Route::get('/database/download', [BackupsController::class, 'download_database'])->name('database.download');

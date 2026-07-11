@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class BranchesController extends Controller
 {
@@ -77,4 +78,6 @@ class BranchesController extends Controller
 
         return redirect()->route('branches.index')->with('flash_success', 'Branch deleted successfully.');
     }
+
+
 }

@@ -286,17 +286,38 @@
 						<div class="px-3 py-2">
                             <form id="branch-switch-form" action="{{ route('branch.switch') }}" method="POST">
                                 @csrf
-                                <select name="branch_id" class="form-select bg-dark text-white border-secondary" onchange="document.getElementById('branch-switch-form').submit();">
-                                    @if(auth()->user()->role === 'admin')
-                                        <option value="" {{ is_null($currentBranch) ? 'selected' : '' }}>All Branches (Global)</option>
+
+                                @php
+                                    $user = auth()->user();
+                                    $isClerk = ($user->role === 'clerk');
+
+                                    // Core Logic: Clerks get forced to their home branch ID, Admins fallback to session null
+                                    $currentSelection = $isClerk ? $user->branch_id : session('active_branch_id', null);
+                                @endphp
+
+                                <!-- Strictly locked dropdown styling applied if clerk role checks out -->
+                                <select name="branch_id"
+                                        class="form-select bg-dark text-white border-secondary"
+                                        @if($isClerk) disabled style="opacity: 0.65; cursor: not-allowed;" @else onchange="document.getElementById('branch-switch-form').submit();" @endif>
+
+                                    <!-- Global Admin Option -->
+                                    @if($user->role === 'admin')
+                                        <option value="" {{ is_null($currentSelection) ? 'selected' : '' }}>All Branches (Global)</option>
                                     @endif
 
+                                    <!-- Individual Branches Loop -->
                                     @foreach($sidebarBranches as $branch)
-                                        <option value="{{ $branch->id }}" {{ ($currentBranch && $currentBranch->id == $branch->id) ? 'selected' : '' }}>
+                                        <option value="{{ $branch->id }}" {{ (!is_null($currentSelection) && $currentSelection == $branch->id) ? 'selected' : '' }}>
                                             {{ $branch->name }}
                                         </option>
                                     @endforeach
                                 </select>
+
+                                <!-- Crucial HTML Guardrail: Disabled select components do not submit in POST forms.
+                                    This hidden field handles underlying payload safety. -->
+                                @if($isClerk)
+                                    <input type="hidden" name="branch_id" value="{{ $user->branch_id }}">
+                                @endif
                             </form>
                         </div>
 
@@ -840,7 +861,7 @@
 						<!--begin::Row-->
 						<div class="row">
 							<div class="col-sm-6">
-								<form action="{{ route('customers.index') }}" method="GET" class="input-group">
+								<form action="{{ route('customers.search') }}" method="GET" class="input-group">
 									<span class="input-group-text"><i class="bi bi-search"></i></span>
 									<input
 										type="search"

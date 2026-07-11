@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,9 +27,17 @@ class Customer extends Model
         'image_name',
         'image_size',
         'image_location',
-        'user_id'
+        'user_id',
+        'branch_id'
     ];
 
     // Optional: Protect database mass-assignment anomalies
     protected $guarded = [];
+
+    public function branch(): BelongsTo
+    {
+        // Because you named the column 'branch_id',
+        // Laravel automatically maps this to the branches table.
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
 }

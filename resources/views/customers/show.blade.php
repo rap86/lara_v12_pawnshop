@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row g-4">
-    <div class="col-xl-3 col-lg-4">
+    <div class="col-xl-4 col-lg-5">
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-secondary text-white text-center py-4 rounded-top border-0">
                 <div class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center mb-3 fw-bold"
@@ -10,12 +10,12 @@
                     {{ strtoupper(substr($customers->first_name, 0, 1) . substr($customers->last_name, 0, 1)) }}
                 </div>
 
-                <h5 class="fw-bold mb-1">{{ $customers->first_name }} {{ $customers->middle_name }} {{ $customers->last_name }}</h5>
+                <h4 class="fw-bold mb-1">{{ $customers->first_name }} {{ $customers->middle_name }} {{ $customers->last_name }}</h4>
                 <p class="text-light opacity-75 small mb-0">ID: #{{ $customers->id }}</p>
             </div>
 
             <div class="card-body pt-3">
-                <ul class="list-group list-group-flush text-start small mb-4">
+                <ul class="list-group list-group-flush text-start small mb-4 fs-5">
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
                         <span class="text-secondary"><i class="bi bi-phone me-2 text-dark"></i>Mobile</span>
                         <span class="fw-semibold text-dark">{{ $customers->cellphone_number ?? 'N/A' }}</span>
@@ -41,6 +41,10 @@
                         <span class="fw-semibold text-dark">{{ $customers->birthdate }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+                        <span class="text-secondary"><i class="bi bi-building me-2 text-dark"></i>Branch</span>
+                        <span class="fw-semibold text-dark">{{ $customers->branch->name ?? 'Main Branch' }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
                         Address: {{ $customers->address }}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
@@ -49,18 +53,18 @@
                 </ul>
 
                 <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-success d-flex align-items-center justify-content-center py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
-                        <i class="bi bi-pencil-square me-2"></i> Update Profile
-                    </button>
-                    <a href="{{ route('customers.edit', $customers->id) }}" class="btn btn-outline-danger d-flex align-items-center justify-content-center py-2">
-                        <i class="bi bi-trash me-2"></i> Edit Profile
+                    <a href="{{ route('customers.edit', $customers->id) }}" class="btn btn-success btn-lg d-flex align-items-center justify-content-center py-2">
+                        <i class="bi bi-pencil-square me-2"></i> Edit Profile
+                    </a>
+                    <a href="#" class="btn btn-outline-secondary btn-lg d-flex align-items-center justify-content-center py-2">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Disable Profile
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-9 col-lg-8">
+    <div class="col-xl-8 col-lg-7">
         <div class="card shadow-sm border-0 h-100">
             <div class="card-header bg-transparent border-bottom p-0">
                 <ul class="nav nav-tabs card-header-tabs m-0 px-3" id="profile-tabs" role="tablist">
@@ -102,6 +106,4 @@
         </div>
     </div>
 </div>
-
-@include('elements.bs_modal_info_update_customer')
 @endsection
