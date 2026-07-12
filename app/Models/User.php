@@ -27,7 +27,19 @@ class User extends Authenticatable
         'role',
         'status',
         'branch_id',
-        'is_floating'
+        'is_floating',
+
+        // --- NEW 2FA DESTINATIONS ---
+        'phone_number',
+        'chat_id_telegram',
+        'chat_id_viber',
+
+        // --- NEW 2FA SWITCHES ---
+        'two_factor_sms',
+        'two_factor_gmail',
+        'two_factor_yahoo',
+        'two_factor_viber',
+        'two_factor_telegram'
     ];
 
     /**
@@ -50,6 +62,14 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+
+            // --- NEW 2FA BOOLEAN CASTS ---
+            'is_floating' => 'boolean',
+            'two_factor_sms' => 'boolean',
+            'two_factor_gmail' => 'boolean',
+            'two_factor_yahoo' => 'boolean',
+            'two_factor_viber' => 'boolean',
+            'two_factor_telegram' => 'boolean',
         ];
     }
 

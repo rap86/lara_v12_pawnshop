@@ -22,7 +22,18 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'password' => Hash::make('panuelos'), // Securely hashes the password
             'status' => 'active',
-            'branch_id' => 1
+            'branch_id' => 1,
+            // Default testing contact details
+            'phone_number'        => '+639171234567',
+            'chat_id_telegram'    => '123456789',
+            'chat_id_viber'       => 'vbr-admin-xyz',
+
+            // Pre-enable a couple of channels for testing the verification logic
+            'two_factor_gmail'    => true,
+            'two_factor_yahoo'    => true,
+            'two_factor_sms'      => true,
+            'two_factor_telegram' => false,
+            'two_factor_viber'    => false
         ]);
 
         // Create a Standard/Clerk account
@@ -33,7 +44,18 @@ class UserSeeder extends Seeder
             'role' => 'clerk',
             'password' => Hash::make('iamtheclerk'),
             'status' => 'active',
-            'branch_id' => 1
+            'branch_id' => 1,
+            // Default testing contact details
+            'phone_number'        => '+639171234567',
+            'chat_id_telegram'    => '123456789',
+            'chat_id_viber'       => 'vbr-admin-xyz',
+
+            // Pre-enable a couple of channels for testing the verification logic
+            'two_factor_gmail'    => true,
+            'two_factor_yahoo'    => false,
+            'two_factor_sms'      => true,
+            'two_factor_telegram' => false,
+            'two_factor_viber'    => false
         ]);
 
          // Create a Standard/Clerk account
@@ -44,7 +66,18 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'password' => Hash::make('iamtheadmin'),
             'status' => 'active',
-            'branch_id' => 1
+            'branch_id' => 1,
+            // Default testing contact details
+            'phone_number'        => '+639171234567',
+            'chat_id_telegram'    => '123456789',
+            'chat_id_viber'       => 'vbr-admin-xyz',
+
+            // Pre-enable a couple of channels for testing the verification logic
+            'two_factor_gmail'    => true,
+            'two_factor_yahoo'    => false,
+            'two_factor_sms'      => true,
+            'two_factor_telegram' => false,
+            'two_factor_viber'    => false
         ]);
     }
 }

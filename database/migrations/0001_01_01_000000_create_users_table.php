@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-              // 1. Create the column (Matches $table->id() on branches)
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->string('name');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('role'); // e.g., 'admin', 'clerk'
-
-            // Set a default status so newly created users are active by default
+            $table->string('role');
             $table->string('status')->default('active');
 
             // 2. Define the foreign key constraint
@@ -33,6 +30,19 @@ return new class extends Migration
 
             // Native true/false switch, defaults to false for standard staff
             $table->boolean('is_floating')->default(false);
+
+            // --- NEW 2FA & NOTIFICATION CHANNELS ---
+            // Destination Contacts
+            $table->string('phone_number')->nullable(); // Required for SMS delivery
+            $table->string('chat_id_viber')->nullable();
+            $table->string('chat_id_telegram')->nullable();
+
+            // 2FA Channel User Preferences (Defaulting to false/opt-in)
+            $table->boolean('two_factor_sms')->default(false);
+            $table->boolean('two_factor_gmail')->default(false);
+            $table->boolean('two_factor_yahoo')->default(false);
+            $table->boolean('two_factor_viber')->default(false);
+            $table->boolean('two_factor_telegram')->default(false);
 
             $table->rememberToken();
             $table->timestamps();

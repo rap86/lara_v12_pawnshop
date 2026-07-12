@@ -81,8 +81,8 @@
                                                 data-name="{{ $user->name }}">
                                             <i class="bi bi-trash3"></i> Delete
                                         </button>
-                                        <a href="{{ route('users.edit',  $user->id) }}" class="btn btn-success">
-                                            <i class="bi bi-pencil-square me-2"></i> Edit
+                                        <a href="{{ route('users.show',  $user->id) }}" class="btn btn-outline-secondary">
+                                            <i class="bi bi-eye me-2"></i> View
                                         </a>
                                     </td>
                                 </tr>

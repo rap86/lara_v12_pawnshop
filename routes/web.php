@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/users/{id}', [UsersController::class, 'edit'])->name('users.edit');
         Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
         Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
+        Route::get('/users/show/{id}', [UsersController::class, 'show'])->name('users.show');
 
         // Branch Management
         Route::get('/branches', [BranchesController::class, 'index'])->name('branches.index');

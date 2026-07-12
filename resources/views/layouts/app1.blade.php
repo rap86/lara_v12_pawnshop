@@ -242,7 +242,7 @@
 								<!--end::Menu Body-->
 								<!--begin::Menu Footer-->
 								<li class="user-footer">
-									<a href="#" class="btn btn-outline-secondary">Profile</a>
+									<a href="{{ route('users.show', Auth::user()->id) }}" class="btn btn-outline-secondary">Profile</a>
 									<form method="POST" action="{{ route('logout') }}" class=" float-end">
                                         @csrf
 
