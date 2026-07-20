@@ -40,7 +40,7 @@
                 <div class="mb-4 text-dark display-1 opacity-75">
                     <i class="bi bi-safe2" style="color: #2d3238;"></i>
                 </div>
-                <h1 class="display-5 fw-bold text-dark mb-3" style="letter-spacing: -1px;">Secure Pawnshop Management</h1>
+                <h1 class="display-5 fw-bold text-dark mb-3" style="letter-spacing: -1px;">Secure Management</h1>
                 <p class="text-muted fs-5 mb-4 px-lg-5" style="line-height: 1.6;">
                     Streamline tracking, ticket inventories, collateral verification audits, and core operational reporting metrics seamlessly within a singular secure system portal ecosystem.
                 </p>
