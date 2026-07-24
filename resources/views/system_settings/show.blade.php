@@ -37,7 +37,7 @@
                 Two-Factor<br>Authentication
             </h2>
 
-            <form id="otp-form" action="{{ route('settings.input_validation') }}" method="POST">
+            <form id="otp-form" action="{{ route('system_settings.input_validation') }}" method="POST">
                 @csrf <div class="otp-field d-flex justify-content-center gap-2 mb-4">
                     <input type="number" class="form-control" maxlength="1" oninput="moveToNext(this, 1)" onkeydown="moveBack(event, 1)" required autocomplete="off" autofocus>
                     <input type="number" class="form-control" maxlength="1" oninput="moveToNext(this, 2)" onkeydown="moveBack(event, 2)" required autocomplete="off">

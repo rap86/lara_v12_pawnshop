@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{ route('settings.store') }}" method="POST" data-confirm-add>
+            <form action="{{ route('system_settings.store') }}" method="POST" data-confirm-add>
                 @csrf
                 <div class="modal-body p-4">
 

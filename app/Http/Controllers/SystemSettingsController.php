@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Setting;
+use App\Models\SystemSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class SettingsController extends Controller
+class SystemSettingsController extends Controller
 {
     public function index()
     {
-        $settings = Setting::latest('created_at')->paginate(20);
-        return view('settings.index')->with('settings', $settings);
+        $system_settings = SystemSetting::latest('created_at')->paginate(20);
+        return view('system_settings.index')->with('system_settings', $system_settings);
     }
 
     public function store(Request $request)
@@ -25,20 +25,20 @@ class SettingsController extends Controller
         ]);
 
         // 2. Create the setting database entry safely using mass assignment
-        Setting::create([
+        SystemSetting::create([
             'name'    => $validated['name'],
             'status'  => $validated['status'],
             'details' => $validated['details'],
         ]);
 
         // 3. Redirect back to the settings list view with a success alert
-        return redirect()->route('settings.index')->with('flash_success', 'New system setting registered successfully.');
+        return redirect()->route('system_settings.index')->with('flash_success', 'New system setting registered successfully.');
     }
 
     public function update(Request $request, $id)
     {
         // 1. Find the setting or fail with a 404 error
-        $setting = Setting::findOrFail($id);
+        $setting = SystemSetting::findOrFail($id);
 
         // 2. Validate the incoming data
         $validated = $request->validate([
@@ -57,7 +57,7 @@ class SettingsController extends Controller
         $setting->save();
 
         // 5. Redirect back to your custom index layout view
-        return redirect()->route('settings.index')->with('flash_success', 'Setting details updated successfully.');
+        return redirect()->route('system_settings.index')->with('flash_success', 'Setting details updated successfully.');
     }
 
     public function show()
@@ -67,9 +67,17 @@ class SettingsController extends Controller
             return redirect()->route('login');
         }
 
-        return view('settings.show');
+        return view('system_settings.show');
     }
 
+    public function destroy(string $id)
+    {
+        $system_setting = SystemSetting::findOrFail($id);
+
+        $system_setting->delete();
+
+        return redirect()->route('system_settings.index')->with('flash_success', 'System setting deleted successfully.');
+    }
 
     /**
      * 2. Validates the static code and handles the landing page redirect

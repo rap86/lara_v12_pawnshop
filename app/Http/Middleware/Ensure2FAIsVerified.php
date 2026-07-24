@@ -19,10 +19,10 @@ class Ensure2FAIsVerified
         if (session()->has('pending_2fa_user')) {
 
             // ...and they are NOT already on the code input or validation pages...
-            if (!$request->is('settings/input_code') && !$request->is('settings/input_validation')) {
+            if (!$request->is('system_settings/input_code') && !$request->is('system_settings/input_validation')) {
 
                 // ...kick them right back to the code input screen!
-                return redirect()->route('settings.show')->withErrors([
+                return redirect()->route('system_settings.show')->withErrors([
                     'otp' => 'You must complete two-factor verification to access this page.'
                 ]);
             }

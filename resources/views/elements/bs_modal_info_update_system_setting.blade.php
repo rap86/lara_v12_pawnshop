@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const form = document.querySelector('.editSettingForm');
             if (form) {
-                form.action = `/settings/${id}`;
+                form.action = `/system_settings/${id}`;
             }
 
             if(document.getElementById('edit_name')) document.getElementById('edit_name').value = name || '';

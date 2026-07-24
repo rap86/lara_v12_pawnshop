@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BranchSeeder::class,
             UserSeeder::class,
-            SettingSeeder::class
+            SystemSettingSeeder::class
         ]);
 
         // User::factory()->count(5)->create();

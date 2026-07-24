@@ -355,7 +355,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('settings.index') }}" class="nav-link">
+                                        <a href="{{ route('system_settings.index') }}" class="nav-link">
                                             <i class="nav-icon bi bi-gear"></i>
                                             <p>Settings</p>
                                         </a>

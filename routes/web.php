@@ -7,7 +7,7 @@ use App\Http\Controllers\PrintsController;
 use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\BranchSessionsController;
-use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SystemSettingsController;
 use App\Http\Controllers\AjaxChatController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // =========================================================================
     // OPEN FOR 2FA INPUT (Must not have 'auth.2fa' to prevent infinite loops)
     // =========================================================================
-    Route::get('/settings/input_code', [SettingsController::class, 'show'])->name('settings.show');
-    Route::post('/settings/input_validation', [SettingsController::class, 'input_validation'])->name('settings.input_validation');
+    Route::get('/system_settings/input_code', [SystemSettingsController::class, 'show'])->name('system_settings.show');
+    Route::post('/system_settings/input_validation', [SystemSettingsController::class, 'input_validation'])->name('system_settings.input_validation');
 
     Route::get('/login_page', function () {
         return view('login_page');
@@ -56,11 +56,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/branches/{id}', [BranchesController::class, 'destroy'])->name('branches.destroy');
 
         // Settings Management
-        Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
-
-        Route::post('/settings', [SettingsController::class, 'store'])->name('settings.store');
-        Route::put('/settings/{id}', [SettingsController::class, 'update'])->name('settings.update');
-        Route::delete('/settings/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
+        Route::get('/system_settings', [SystemSettingsController::class, 'index'])->name('system_settings.index');
+        Route::post('/system_settings', [SystemSettingsController::class, 'store'])->name('system_settings.store');
+        Route::put('/system_settings/{id}', [SystemSettingsController::class, 'update'])->name('system_settings.update');
+        Route::delete('/system_settings/{id}', [SystemSettingsController::class, 'destroy'])->name('system_settings.destroy');
 
         // Customers Management
 

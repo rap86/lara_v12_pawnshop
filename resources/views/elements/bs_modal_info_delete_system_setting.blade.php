@@ -1,21 +1,21 @@
-<div class="modal fade" id="deleteBranchModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBranchModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModalSystemSetting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg">
             <div class="modal-header bg-danger text-white py-3">
                 <h5 class="modal-title fw-bold" id="deleteBranchModalLabel">
-                    <i class="bi bi-exclamation-triangle me-2"></i>Delete Branch Record
+                    <i class="bi bi-exclamation-triangle me-2"></i>Delete Setting Record
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form class="deleteBranchForm" action="" method="POST" data-confirm-delete>
+            <form class="deleteFormSystemSetting" action="" method="POST" data-confirm-delete>
                 @csrf
                 @method('DELETE')
 
                 <div class="modal-body p-4 text-center">
                     <i class="bi bi-trash3 text-danger display-4 mb-3 d-block"></i>
-                    <p class="fs-5 fw-semibold text-dark mb-1">Are you sure you want to delete this user?</p>
-                    <p class="text-muted small">This action cannot be undone. You are about to permanently remove <strong id="delete_branch_name" class="text-dark">this account</strong> from the system.</p>
+                    <p class="fs-5 fw-semibold text-dark mb-1">Are you sure you want to delete this setting?</p>
+                    <p class="text-muted small">This action cannot be undone. You are about to permanently remove <strong id="delete_system_setting_name" class="text-dark">this account</strong> from the system.</p>
                 </div>
 
                 <div class="modal-footer bg-light border-top-0 px-4 justify-content-center">
@@ -29,7 +29,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const deleteModalElement = document.getElementById('deleteBranchModal');
+    const deleteModalElement = document.getElementById('deleteModalSystemSetting');
 
     if (deleteModalElement) {
         deleteModalElement.addEventListener('show.bs.modal', function (event) {
@@ -41,11 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const name = button.getAttribute('data-name');
 
             // Dynamically point the form action to your route structure
-            const form = document.getElementsByClassName('deleteBranchForm')[0];
-            form.action = `/branches/${id}`;
+            const form = document.getElementsByClassName('deleteFormSystemSetting')[0];
+            form.action = `/system_settings/${id}`;
 
             // Show the username inside the warning text
-            document.getElementById('delete_branch_name').textContent = name;
+            document.getElementById('delete_system_setting_name').textContent = name;
         });
     }
 });

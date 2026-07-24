@@ -82,7 +82,7 @@ class LoginRequest extends FormRequest
             // DO NOT use Auth::logout() here yet if it breaks your session layout.
             // Instead, tell Laravel to drop everything and force-route the browser window.
 
-            abort(redirect('/settings/input_code'));
+            abort(redirect('/system_settings/input_code'));
         }
 
         // If 'inactive', execution terminates normally here and Breeze logs them into the default dashboard.

@@ -29,59 +29,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($settings as $setting)
+                            @forelse($system_settings as $system_setting)
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 40px; height: 40px;">
-                                                {{ $setting->id }}
+                                                {{ $system_setting->id }}
                                             </div>
                                             <div>
-                                                <span class="fw-bold text-dark d-block mb-0 font-monospace">{{ $setting->key }}</span>
+                                                <span class="fw-bold text-dark d-block mb-0 font-monospace">{{ $system_setting->key }}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="text-secondary" title="{{ $setting->value }}">
-                                            {{ $setting->name }}
+                                        <span class="text-secondary" title="{{ $system_setting->value }}">
+                                            {{ $system_setting->name }}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="badge rounded-pill px-2.5 py-1 border
-                                            {{ $setting->status === 'active'
+                                            {{ $system_setting->status === 'active'
                                                 ? 'bg-success-subtle text-success border-success-subtle'
                                                 : 'bg-danger-subtle text-danger border-danger-subtle' }}">
-                                            {{ ucfirst($setting->status) }}
+                                            {{ ucfirst($system_setting->status) }}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-secondary">
-                                            {{ $setting->details }}
+                                            {{ $system_setting->details }}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-secondary">
-                                            {{ $setting->created_at }}
+                                            {{ $system_setting->created_at }}
                                         </span>
                                     </td>
-                                    <td class="text-secondary">{{ $setting->updated_at->format('M d, Y h:i A') }}</td>
+                                    <td class="text-secondary">{{ $system_setting->updated_at->format('M d, Y h:i A') }}</td>
                                     <td>
 
                                         <button type="button" class="btn btn-outline-danger"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#deleteSettingModal"
-                                                data-id="{{ $setting->id }}"
-                                                data-name="{{ $setting->name }}">
+                                                data-bs-target="#deleteModalSystemSetting"
+                                                data-id="{{ $system_setting->id }}"
+                                                data-name="{{ $system_setting->name }}">
                                             <i class="bi bi-trash3"></i> Delete
                                         </button>
                                             <button type="button"
                                                 class="btn btn-success"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editSettingModal"
-                                                data-id="{{ $setting->id }}"
-                                                data-name="{{ $setting->name }}"
-                                                data-status="{{ $setting->status }}"
-                                                data-details="{{ $setting->details }}">
+                                                data-id="{{ $system_setting->id }}"
+                                                data-name="{{ $system_setting->name }}"
+                                                data-status="{{ $system_setting->status }}"
+                                                data-details="{{ $system_setting->details }}">
                                             <i class="bi bi-pencil-square"></i> Update
                                         </button>
                                     </td>
@@ -101,15 +101,15 @@
                 </div>
             </div>
             {{-- Custom Pagination Bar Render --}}
-            @if($settings->hasPages())
+            @if($system_settings->hasPages())
                 <div class="card-footer bg-light border-top border-light pt-4 py-3 px-4">
-                    {{ $settings->appends(request()->query())->links() }}
+                    {{ $system_settings->appends(request()->query())->links() }}
                 </div>
             @endif
         </div>
     </div>
 </div>
-@include('elements.bs_modal_info_update_setting')
-@include('elements.bs_modal_info_add_setting')
-
+@include('elements.bs_modal_info_update_system_setting')
+@include('elements.bs_modal_info_add_system_setting')
+@include('elements.bs_modal_info_delete_system_setting')
 @endsection

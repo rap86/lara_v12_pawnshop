@@ -122,11 +122,6 @@
 
 
 @include('elements.bs_modal_info_add_branch')
-
-
 @include('elements.bs_modal_info_update_branch')
-
-
 @include('elements.bs_modal_info_delete_branch')
-
 @endsection
