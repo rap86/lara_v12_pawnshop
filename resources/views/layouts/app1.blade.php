@@ -331,7 +331,7 @@
 							</li>
                             <li class="nav-item">
 								<a href="{{ route('chat.index') }}" class="nav-link">
-									<i class="nav-icon bi bi-people"></i>
+									<i class="nav-icon bi bi-chat"></i>
 									<p>Chat</p>
 								</a>
 							</li>
@@ -357,7 +357,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('system_settings.index') }}" class="nav-link">
                                             <i class="nav-icon bi bi-gear"></i>
-                                            <p>Settings</p>
+                                            <p>System Settings</p>
                                         </a>
                                     </li>
                                 </ul>

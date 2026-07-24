@@ -23,7 +23,7 @@
             <form class="createUserForm needs-validation" action="{{ route('users.store') }}" method="POST" data-confirm-add novalidate>
                 @csrf
 
-                <div class="card-body p-4 p-lg-5 bg-white">
+                <div class="card-body p-4 p-lg-4 bg-white">
 
                     <!-- SECTION 1: Identity & Context -->
                     <div class="mb-5">

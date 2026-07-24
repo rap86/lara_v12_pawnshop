@@ -19,12 +19,27 @@
                 </div>
             </div>
 
+            <!-- SYSTEM VALIDATION ERRORS (Add this block) -->
+            @if ($errors->any())
+                <div class="alert alert-danger p-lg-4 mb-4 border-0 rounded-0 bg-danger bg-opacity-10 text-danger">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+                        <h5 class="mb-0 fw-bold">Update Failed! Please fix these errors:</h5>
+                    </div>
+                    <ul class="mb-0 fs-6">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <!-- RESTFUL Edit Form Actions Layer Mapping to PUT route matrix -->
             <form class="editUserForm needs-validation" action="{{ route('users.update', $user->id) }}" method="POST" data-confirm-update novalidate>
                 @csrf
                 @method('PUT')
 
-                <div class="card-body p-4 p-lg-5 bg-white">
+                <div class="card-body p-4 p-lg-4 bg-white">
 
                     <!-- SECTION 1: Identity & Context -->
                     <div class="mb-5">
@@ -255,7 +270,6 @@
                     </div>
 
                 </div>
-
                 <!-- Footer Operations Group -->
                 <div class="card-footer bg-light border-top border-light-subtle p-4 d-flex flex-column flex-sm-row justify-content-sm-end align-items-stretch align-items-sm-center gap-3">
                     <a href="{{ route('users.show', $user->id) }}" class="btn btn-outline-secondary btn-lg px-4 py-3 fs-5 rounded-3 fw-semibold text-nowrap text-center">

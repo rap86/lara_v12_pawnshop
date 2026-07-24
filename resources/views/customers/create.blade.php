@@ -10,7 +10,7 @@
             <div class="card-header bg-primary text-white p-4 border-0 position-relative" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);">
                 <div class="d-flex align-items-center">
                     <div class="bg-white bg-opacity-20 p-3 rounded-3 me-3 border border-white border-opacity-25 shadow-sm d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
-                        <i class="bi bi-person-plus fs-3 text-white"></i>
+                        <i class="bi bi-person-plus fs-3 text-dark"></i>
                     </div>
                     <div>
                         <h4 class="fw-bold mb-1 tracking-tight fs-3">Add New Customer</h4>
@@ -23,7 +23,7 @@
             <form class="createCustomerForm needs-validation" action="{{ route('customers.store') }}" method="POST" data-confirm-add novalidate>
                 @csrf
 
-                <div class="card-body p-4 p-lg-5 bg-white">
+                <div class="card-body p-4 p-lg-4 bg-white">
 
                     <!-- SECTION 1: Personal Information -->
                     <div class="mb-5">

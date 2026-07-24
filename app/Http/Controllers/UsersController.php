@@ -41,6 +41,7 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
+
         // 1. Find the user or fail with a 404 error
         $user = User::findOrFail($id);
 

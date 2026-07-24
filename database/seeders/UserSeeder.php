@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'I am the admin',
             'username' => 'ronaldo',
-            'email' => 'admin@thispawnshop.com',
+            'email' => 'admin1@thispawnshop.com',
             'role' => 'admin',
             'password' => Hash::make('panuelos'), // Securely hashes the password
             'status' => 'active',
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'I am the admin',
             'username' => 'admin',
-            'email' => 'admin@thispawnshop.com',
+            'email' => 'admin2@thispawnshop.com',
             'role' => 'admin',
             'password' => Hash::make('iamtheadmin'),
             'status' => 'active',

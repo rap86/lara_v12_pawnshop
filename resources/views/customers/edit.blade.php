@@ -10,7 +10,7 @@
             <div class="card-header bg-success text-white p-4 border-0 position-relative" style="background: linear-gradient(135deg, #157347 0%, #0f5132 100%);">
                 <div class="d-flex align-items-center">
                     <div class="bg-white bg-opacity-20 p-3 rounded-3 me-3 border border-white border-opacity-25 shadow-sm d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
-                        <i class="bi bi-pencil-square fs-3 text-white"></i>
+                        <i class="bi bi-pencil-square fs-3 text-dark"></i>
                     </div>
                     <div>
                         <h4 class="fw-bold mb-1 tracking-tight fs-3">Edit Customer Record</h4>
@@ -18,13 +18,27 @@
                     </div>
                 </div>
             </div>
+            <!-- SYSTEM VALIDATION ERRORS (Add this block) -->
+            @if ($errors->any())
+                <div class="alert alert-danger p-lg-4 mb-4 border-0 rounded-0 bg-danger bg-opacity-10 text-danger">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+                        <h5 class="mb-0 fw-bold">Update Failed! Please fix these errors:</h5>
+                    </div>
+                    <ul class="mb-0 fs-6">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!-- Added 'needs-validation' and 'novalidate' for custom Bootstrap feedback states -->
             <form class="editCustomerForm needs-validation" action="{{ route('customers.update', $customer->id) }}" method="POST" data-confirm-update novalidate>
                 @csrf
                 @method('PUT')
 
-                <div class="card-body p-4 p-lg-5 bg-white">
+                <div class="card-body p-4 p-lg-4 bg-white">
 
                     <!-- SECTION 1: Personal Information -->
                     <div class="mb-5">
