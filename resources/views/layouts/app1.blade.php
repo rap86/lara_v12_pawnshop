@@ -360,6 +360,12 @@
                                             <p>System Settings</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('api_settings.index') }}" class="nav-link">
+                                            <i class="nav-icon bi bi-gear"></i>
+                                            <p>API Settings</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 							<li class="nav-item menu-open">

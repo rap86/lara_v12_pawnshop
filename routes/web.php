@@ -9,6 +9,7 @@ use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\BranchSessionsController;
 use App\Http\Controllers\SystemSettingsController;
 use App\Http\Controllers\AjaxChatController;
+use App\Http\Controllers\ApiSettingsController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Guest / Public Access
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('login_page');
     })->name('login_page');
 
+    // This single line generates all the necessary routes (index, create, store, show, edit, update, destroy)
+    Route::resource('api_settings', ApiSettingsController::class);
 
     // =========================================================================
     // SECURED INTERNAL PAWNSHOP PAGES (Protected by the 'auth.2fa' middleware guard)
