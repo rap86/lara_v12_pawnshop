@@ -90,7 +90,7 @@
                                     <td>
                                         <a href="{{ route('api_settings.show', $setting->id) }}"
                                         class="btn btn-outline-secondary px-4 py-2 rounded-3 fs-6 shadow-2xs">
-                                            <i class="bi bi-pencil-square me-2"></i> Edit
+                                            <i class="bi bi-eye me-2"></i> View
                                         </a>
                                     </td>
                                 </tr>
